@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Stock Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .stock-info {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<h1>Laptop Stock Information</h1>
+<div class="stock-info">
+    <p><strong>Total Sold Quantity:</strong> <span id="total-sold">Loading...</span></p>
+    <p><strong>Total Stock Quantity:</strong> <span id="total-stock">Loading...</span></p>
+</div>
+
+<script>
+    async function fetchData() {
+        try {
+            const soldResponse = await fetch('http://localhost:8080/total-sold');
+            const stockResponse = await fetch('http://localhost:8080/total-stock');
+
+            if (!soldResponse.ok) {
+                console.error('Error fetching total sold:', soldResponse.status, soldResponse.statusText);
+                throw new Error('Failed to fetch total sold');
+            }
+
+            if (!stockResponse.ok) {
+                console.error('Error fetching total stock:', stockResponse.status, stockResponse.statusText);
+                throw new Error('Failed to fetch total stock');
+            }
+
+            const totalSold = await soldResponse.text(); // Get the response as text
+            const totalStock = await stockResponse.text(); // Get the response as text
+
+            document.getElementById('total-sold').textContent = totalSold;
+            document.getElementById('total-stock').textContent = totalStock;
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            document.getElementById('total-sold').textContent = 'Error fetching data';
+            document.getElementById('total-stock').textContent = 'Error fetching data';
+        }
+    }
+
+    // Fetch data when the page loads
+    window.onload = fetchData;
+</script>
+</body>
+</html>
