@@ -1,15 +1,16 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Laptop;
+
+import com.example.demo.model.Product;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface LaptopService {
-    List<Laptop> getLaptops();
-    List<Laptop> getBestSellings();
-    Optional<Laptop> getLaptop(String id);
-    Laptop saveLaptop(Laptop laptop);
+    List<Product> getLaptops();
+    List<Product> getBestSellings();
+    Optional<Product> getLaptop(String id);
+    Product saveLaptop(Product laptop);
     void deleteLaptop(String id);
-    Laptop updateLaptop(String id, Laptop laptopDetails);
+    Product updateLaptop(String id, Product laptopDetails);
 }

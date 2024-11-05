@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.Laptop;
+
+import com.example.demo.model.Product;
 import com.example.demo.repository.LaptopRepository;
 import com.example.demo.service.LaptopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +15,22 @@ public class LaptopServiceImpl implements LaptopService {
     @Autowired
     LaptopRepository laptopRepository;
     @Override
-    public List<Laptop> getLaptops() {
+    public List<Product> getLaptops() {
         return laptopRepository.findAll();
     }
 
     @Override
-    public List<Laptop> getBestSellings() {
+    public List<Product> getBestSellings() {
         return laptopRepository.findTop10BestSellingProducts();
     }
 
     @Override
-    public Optional<Laptop> getLaptop(String id) {
+    public Optional<Product> getLaptop(String id) {
         return laptopRepository.findById(Long.valueOf(id));
     }
 
     @Override
-    public Laptop saveLaptop(Laptop laptop) {
+    public Product saveLaptop(Product laptop) {
         return laptopRepository.save(laptop);
     }
 
@@ -39,8 +40,8 @@ public class LaptopServiceImpl implements LaptopService {
     }
 
     @Override
-    public Laptop updateLaptop(String id, Laptop laptopDetails) {
-        Laptop laptop = laptopRepository.findById(Long.valueOf(id))
+    public Product updateLaptop(String id, Product laptopDetails) {
+        Product laptop = laptopRepository.findById(Long.valueOf(id))
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy laptop với ID: " + id));
         laptop.setName(laptopDetails.getName());
         laptop.setImage(laptopDetails.getImage());
