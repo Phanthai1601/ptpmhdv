@@ -11,6 +11,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import useHideUnimportantErrors from './library/utils/useHideUnimportantErrors'
+import ProductWithID from './pages/ProductWithID'
 
 const App = () => {
     useHideUnimportantErrors()
@@ -21,6 +22,7 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
+                <Route path="products/:id" element={<ProductWithID />} />
                 <Route path="*" element={<div className="text-center pt-5">404 - Page Not Found</div>} />
                 {/* Đường dẫn đến các trang dành cho quản trị viên */}
                 <Route path="/admin" element={<Layout />}>

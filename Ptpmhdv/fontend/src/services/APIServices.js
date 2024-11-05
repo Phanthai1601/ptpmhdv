@@ -15,6 +15,7 @@ export const getRevenue = async () => {
     })
     return revenueData
 }
+
 export const getProducts = async () => {
     let Data = []
     await axios.get(`${process.env.REACT_APP_BACKEND_API}/laptops`).then((data) => {
@@ -53,6 +54,16 @@ export const deleteProduct = async (productId) => {
         return response.data
     } catch (error) {
         console.error('Error deleting product:', error)
+        throw error
+    }
+}
+
+export const getProductById = async (productId) => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_API}/laptops/${productId}`)
+        return response.data
+    } catch (error) {
+        console.error('Error get product by id:', error)
         throw error
     }
 }

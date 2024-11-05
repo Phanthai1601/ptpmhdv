@@ -1,16 +1,19 @@
-// Products.js
 import React, { useEffect, useState } from 'react'
-import { getProducts, addProduct, deleteProduct, updateProduct } from '../services/APIServices' // Import addProduct
+import { Link } from 'react-router-dom'
+import { getProducts, addProduct, deleteProduct, updateProduct } from '../services/APIServices'
 import ReactPaginate from 'react-paginate'
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa'
 import FormProduct from '../components/FromProduct'
+import ConfirmDelete from '../components/ConfirmDelete'
 
 const Products = () => {
     const [productData, setProductData] = useState([])
     const [currentPage, setCurrentPage] = useState(0)
     const [itemsPerPage] = useState(10)
     const [isFormVisible, setIsFormVisible] = useState(false)
+    const [isConfirmDeleteVisible, setIsConfirmDeleteVisible] = useState(false)
     const [selectedProduct, setSelectedProduct] = useState(null)
+    const [productIdToDelete, setProductIdToDelete] = useState(null)
 
     const getData = async () => {
         try {
@@ -36,13 +39,25 @@ const Products = () => {
         setIsFormVisible(true)
     }
 
-    const handleDelete = async (id) => {
-        try {
-            await deleteProduct(id)
-            await getData()
-        } catch (error) {
-            console.error('Error deleting product:', error)
+    const handleDelete = async () => {
+        if (productIdToDelete) {
+            try {
+                setTimeout(() => {
+                    setIsConfirmDeleteVisible(false)
+                }, 400)
+                await deleteProduct(productIdToDelete)
+                await getData()
+            } catch (error) {
+                console.error('Error deleting product:', error)
+            }
+            setProductIdToDelete(null)
+            setIsConfirmDeleteVisible(false)
         }
+    }
+
+    const handleDeleteClick = (id) => {
+        setProductIdToDelete(id)
+        setIsConfirmDeleteVisible(true)
     }
 
     const handleAddNew = () => {
@@ -55,7 +70,7 @@ const Products = () => {
             try {
                 await updateProduct(product)
             } catch (error) {
-                console.log('Error udate product:', error)
+                console.log('Error updating product:', error)
             }
         } else {
             try {
@@ -111,7 +126,14 @@ const Products = () => {
                                 {currentProducts.map((product) => (
                                     <tr key={product.id}>
                                         <td className="py-2 text-xs">{product.id}</td>
-                                        <td className="py-2 text-xs">{product.name}</td>
+                                        <td className="py-2 text-xs">
+                                            <Link
+                                                to={`/products/${product.id}`}
+                                                className="text-blue-500 hover:underline"
+                                            >
+                                                {product.name}
+                                            </Link>
+                                        </td>
                                         <td className="py-2 text-xs">{product.ram}</td>
                                         <td className="py-2 text-xs">{product.ssd}</td>
                                         <td className="py-2 text-xs">{product.sale_price}</td>
@@ -135,7 +157,7 @@ const Products = () => {
                                                 </button>
                                                 <button
                                                     className="bg-red-600 text-white border border-red-500 py-1 px-2 rounded flex items-center"
-                                                    onClick={() => handleDelete(product.id)}
+                                                    onClick={() => handleDeleteClick(product.id)}
                                                 >
                                                     <FaTrash className="mr-1" />
                                                     Xóa
@@ -164,6 +186,13 @@ const Products = () => {
             </div>
 
             {isFormVisible && <FormProduct product={selectedProduct} onSave={handleSave} onClose={handleCloseForm} />}
+            {isConfirmDeleteVisible && (
+                <ConfirmDelete
+                    message="Bạn có chắc chắn muốn xóa sản phẩm này không?"
+                    onConfirm={handleDelete}
+                    onCancel={() => setIsConfirmDeleteVisible(false)}
+                />
+            )}
         </div>
     )
 }
