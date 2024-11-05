@@ -67,8 +67,9 @@ const Products = () => {
 
     const handleSave = async (product) => {
         if (selectedProduct) {
+            // Đảm bảo rằng product chứa ID của sản phẩm cần cập nhật
             try {
-                await updateProduct(product)
+                await updateProduct({ ...product, id: selectedProduct.id }) // Truyền ID sản phẩm vào object
             } catch (error) {
                 console.log('Error updating product:', error)
             }

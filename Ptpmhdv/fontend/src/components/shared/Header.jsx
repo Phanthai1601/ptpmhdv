@@ -33,11 +33,11 @@ const Header = () => {
                             <Transition
                                 as={Fragment}
                                 enter="transition ease-out duration-200"
-                                enterFrom="opacity-0 translate-y-1" // Khi mở, nó trượt xuống
-                                enterTo="opacity-100 translate-y-0" // Đến vị trí gốc
+                                enterFrom="opacity-0 translate-y-1"
+                                enterTo="opacity-100 translate-y-0"
                                 leave="transition ease-in duration-150"
-                                leaveFrom="opacity-100 translate-y-0" // Khi thoát, bắt đầu từ vị trí gốc
-                                leaveTo="opacity-0 translate-y-1" // Trượt lên
+                                leaveFrom="opacity-100 translate-y-0"
+                                leaveTo="opacity-0 translate-y-1"
                             >
                                 <Popover.Panel className="absolute right-0 z-10 mt-1/2 w-80">
                                     <div className="bg-white rounded-sm shadow-md ring-1 ring-black ring-opacity-5 px-2 py-2.5">
@@ -65,11 +65,11 @@ const Header = () => {
                             <Transition
                                 as={Fragment}
                                 enter="transition ease-out duration-200"
-                                enterFrom="opacity-0 translate-y-1" // Khi mở, nó trượt xuống
-                                enterTo="opacity-100 translate-y-0" // Đến vị trí gốc
+                                enterFrom="opacity-0 translate-y-1"
+                                enterTo="opacity-100 translate-y-0"
                                 leave="transition ease-in duration-150"
-                                leaveFrom="opacity-100 translate-y-0" // Khi thoát, bắt đầu từ vị trí gốc
-                                leaveTo="opacity-0 translate-y-1" // Trượt lên
+                                leaveFrom="opacity-100 translate-y-0"
+                                leaveTo="opacity-0 translate-y-1"
                             >
                                 <Popover.Panel className="absolute right-0 z-10 mt-1/2 w-80">
                                     <div className="bg-white rounded-sm shadow-md ring-1 ring-black ring-opacity-5 px-2 py-2.5">
@@ -134,13 +134,13 @@ const Header = () => {
                                 {({ active }) => (
                                     <div
                                         className={classNames(
-                                            active && 'bg-gray-100',
-                                            'flex flex-1 gap-1 text-gray-700 focus:bg-gary-200 block cursor-pointer rounded-sm px-4 py-2'
+                                            active ? 'bg-gray-100' : '',
+                                            'flex items-center gap-1 text-gray-700 focus:bg-gray-200 cursor-pointer rounded-sm px-4 py-2'
                                         )}
                                         onClick={() => navigate('/')}
                                     >
-                                        Đăng xuất
-                                        <span className="text-x pt-0.5 px-1/5">
+                                        <span>Đăng xuất</span>
+                                        <span className="text-lg">
                                             <HiOutlineLogout />
                                         </span>
                                     </div>
