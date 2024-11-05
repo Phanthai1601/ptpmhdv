@@ -23,3 +23,36 @@ export const getProducts = async () => {
     console.log(Data)
     return Data
 }
+
+export const addProduct = async (newProduct) => {
+    try {
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_API}/laptops`, newProduct)
+        return response.data
+    } catch (error) {
+        console.error('Error adding product:', error)
+        throw error
+    }
+}
+
+export const updateProduct = async (updatedProduct) => {
+    try {
+        const response = await axios.put(
+            `${process.env.REACT_APP_BACKEND_API}/laptops/${updatedProduct.id}`,
+            updatedProduct
+        )
+        return response.data
+    } catch (error) {
+        console.error('Error updating product:', error)
+        throw error
+    }
+}
+
+export const deleteProduct = async (productId) => {
+    try {
+        const response = await axios.delete(`${process.env.REACT_APP_BACKEND_API}/laptops/${productId}`)
+        return response.data
+    } catch (error) {
+        console.error('Error deleting product:', error)
+        throw error
+    }
+}

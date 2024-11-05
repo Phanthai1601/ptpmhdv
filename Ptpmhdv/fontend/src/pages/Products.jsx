@@ -1,6 +1,6 @@
 // Products.js
 import React, { useEffect, useState } from 'react'
-import { getProducts } from '../services/APIServices'
+import { getProducts, addProduct, deleteProduct, updateProduct } from '../services/APIServices' // Import addProduct
 import ReactPaginate from 'react-paginate'
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa'
 import FormProduct from '../components/FromProduct'
@@ -36,8 +36,13 @@ const Products = () => {
         setIsFormVisible(true)
     }
 
-    const handleDelete = (id) => {
-        setProductData(productData.filter((product) => product.id !== id))
+    const handleDelete = async (id) => {
+        try {
+            await deleteProduct(id)
+            await getData()
+        } catch (error) {
+            console.error('Error deleting product:', error)
+        }
     }
 
     const handleAddNew = () => {
@@ -45,14 +50,21 @@ const Products = () => {
         setIsFormVisible(true)
     }
 
-    const handleSave = (product) => {
+    const handleSave = async (product) => {
         if (selectedProduct) {
-            // Sửa sản phẩm
-            setProductData(productData.map((p) => (p.id === product.id ? product : p)))
+            try {
+                await updateProduct(product)
+            } catch (error) {
+                console.log('Error udate product:', error)
+            }
         } else {
-            // Thêm sản phẩm
-            setProductData([...productData, { ...product, id: Date.now() }])
+            try {
+                await addProduct(product)
+            } catch (error) {
+                console.error('Error adding product:', error)
+            }
         }
+        await getData()
         setIsFormVisible(false)
     }
 
