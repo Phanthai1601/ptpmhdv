@@ -19,7 +19,7 @@ const PopularProducts = () => {
         <div className="bg-white p-4 rounded-sm border border-gray-200 w-full max-w-xs">
             <strong className="text-gray-700 font-medium">Sản phẩm phổ biến</strong>
             <div className="mt-4 grid grid-cols-1 gap-3">
-                {popularProducts.map((product) => (
+                {popularProducts.slice(0, 5).map((product) => (
                     <Link
                         to={`/products/${product.id}`}
                         className="flex items-center hover:no-underline"

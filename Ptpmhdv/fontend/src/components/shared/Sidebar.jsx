@@ -1,7 +1,7 @@
 import React from 'react'
 import { RiAdminFill } from 'react-icons/ri'
 import { DASHBOARD_SIDEBAR_BOTTOM_LINKS, DASHBOARD_SIDEBAR_LINKS } from '../../library/consts/navigation'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 import { HiOutlineLogout } from 'react-icons/hi'
 
@@ -9,6 +9,7 @@ const linkClasses =
     'flex items-center gap-2 font-light px-3 py-2 hover:bg-neutral-700 hover:no-underline active:bg-neutral-600 rounded-sm text-base'
 
 const Sidebar = () => {
+    const navigate = useNavigate()
     return (
         <div className={classNames('bg-neutral-900 w-35 md:w-42 lg:w-51 p-3 flex flex-col text-white h-full')}>
             <div className="flex items-center gap-2 px-1 py-3">
@@ -24,7 +25,7 @@ const Sidebar = () => {
                 {DASHBOARD_SIDEBAR_BOTTOM_LINKS.map((item) => (
                     <SidebarLink key={item.key} item={item} />
                 ))}
-                <div className={classNames('text-red-500 cursor-pointer', linkClasses)}>
+                <div className={classNames('text-red-500 cursor-pointer', linkClasses)} onClick={() => navigate('/')}>
                     <span className="text-xl">
                         <HiOutlineLogout />
                     </span>
