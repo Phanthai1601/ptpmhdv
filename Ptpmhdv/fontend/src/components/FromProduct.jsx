@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import '../assets/css/FormProduct.scss'
 
-const FormSanPham = ({ product, onSave, onClose }) => {
+const FormProduct = ({ product, onSave, onClose }) => {
     const [formData, setFormData] = useState({
         id: '',
         name: '',
@@ -18,6 +19,8 @@ const FormSanPham = ({ product, onSave, onClose }) => {
         stock: '',
         image: ''
     })
+
+    const [isExiting, setIsExiting] = useState(false)
 
     useEffect(() => {
         if (product) {
@@ -51,22 +54,29 @@ const FormSanPham = ({ product, onSave, onClose }) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         onSave(formData)
-        onClose()
+        setIsExiting(true)
+        setTimeout(onClose, 300)
+    }
+
+    const handleClose = () => {
+        setIsExiting(true)
+        setTimeout(onClose, 400)
     }
 
     return (
         <>
-            {/* Overlay */}
-            <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={onClose}></div>
+            <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={handleClose}></div>
 
-            {/* Form Modal */}
-            <div className="fixed inset-0 flex justify-end items-start z-50 p-4">
+            <div
+                className={`fixed inset-0 flex justify-end items-start z-50 p-4 ${
+                    isExiting ? 'slide-out' : 'slide-in'
+                }`}
+            >
                 <div className="bg-white p-6 rounded shadow-lg w-full max-w-md h-full overflow-auto">
                     <h2 className="text-lg font-semibold mb-4 text-gray-600">
                         {product ? 'Sửa sản phẩm' : 'Thêm sản phẩm'}
                     </h2>
                     <form onSubmit={handleSubmit}>
-                        {/* Tên sản phẩm */}
                         <div className="mb-2">
                             <label className="block text-sm font-medium text-gray-500">Tên sản phẩm</label>
                             <input
@@ -79,7 +89,6 @@ const FormSanPham = ({ product, onSave, onClose }) => {
                             />
                         </div>
 
-                        {/* Liên kết ảnh */}
                         <div className="mb-2">
                             <label className="block text-sm font-medium text-gray-500">Liên kết ảnh</label>
                             <input
@@ -108,18 +117,7 @@ const FormSanPham = ({ product, onSave, onClose }) => {
                         ].map((key) => (
                             <div key={key} className="mb-2">
                                 <label className="block text-sm font-medium text-gray-500">
-                                    {key === 'ram' && 'RAM'}
-                                    {key === 'ssd' && 'SSD'}
-                                    {key === 'sale_price' && 'Giá bán'}
-                                    {key === 'old_price' && 'Giá cũ'}
-                                    {key === 'discount_percentage' && '% giảm giá'}
-                                    {key === 'gift' && 'Quà tặng'}
-                                    {key === 'screen' && 'Màn hình'}
-                                    {key === 'cpu' && 'CPU'}
-                                    {key === 'graphics_card' && 'Card đồ họa'}
-                                    {key === 'battery' && 'Pin'}
-                                    {key === 'weight' && 'Trọng lượng'}
-                                    {key === 'stock' && 'Kho'}
+                                    {key.charAt(0).toUpperCase() + key.slice(1)} {/* Capitalize the label */}
                                 </label>
                                 <input
                                     type="text"
@@ -135,7 +133,7 @@ const FormSanPham = ({ product, onSave, onClose }) => {
                         <button type="submit" className="bg-blue-700 text-white py-2 px-4 rounded">
                             {product ? 'Cập nhật' : 'Thêm mới'}
                         </button>
-                        <button type="button" className="ml-2 text-gray-600" onClick={onClose}>
+                        <button type="button" className="ml-2 text-gray-600" onClick={handleClose}>
                             Hủy
                         </button>
                     </form>
@@ -145,4 +143,4 @@ const FormSanPham = ({ product, onSave, onClose }) => {
     )
 }
 
-export default FormSanPham
+export default FormProduct
