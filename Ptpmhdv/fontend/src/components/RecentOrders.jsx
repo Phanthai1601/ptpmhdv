@@ -65,7 +65,7 @@ const recentOrders = [
     }
 ]
 
-export default function RecentOrders() {
+const RecentOrders = () => {
     return (
         <div className="bg-white px-4 pt-3 pb-4 rounded-sm border border-gray-200 flex-1 overflow-auto">
             <strong className="text-gray-700 font-medium">Đơn hàng gần đây</strong>
@@ -108,3 +108,4 @@ export default function RecentOrders() {
         </div>
     )
 }
+export default RecentOrders

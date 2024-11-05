@@ -12,7 +12,7 @@ const dataTotal = {
     total_orders_change: -35
 }
 
-export default function DashboardStatsGrid() {
+const DashboardStatsGrid = () => {
     return (
         <div className="flex flex-wrap gap-4 w-full">
             <BoxWrapper>
@@ -114,3 +114,5 @@ function BoxWrapper({ children }) {
         </div>
     )
 }
+
+export default DashboardStatsGrid

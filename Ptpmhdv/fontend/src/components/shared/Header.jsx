@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import logoAdmin from '../../assets/icons/hacker.png'
 import { useNavigate } from 'react-router-dom'
 
-export default function Header() {
+const Header = () => {
     const navigate = useNavigate()
     return (
         <div className="bg-white h-16 px-4 flex items-center border-b border-gray-200">
@@ -153,3 +153,5 @@ export default function Header() {
         </div>
     )
 }
+
+export default Header

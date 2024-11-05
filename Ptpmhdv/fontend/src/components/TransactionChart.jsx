@@ -3,7 +3,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 import { getRevenue } from '../services/APIServices'
 import convertVNDToUSD from '../library/utils/convertVNDToUSD'
 
-export default function TransactionChart() {
+const TransactionChart = () => {
     const [transactionData, setTransactionData] = useState([])
 
     const getData = async () => {
@@ -54,3 +54,5 @@ export default function TransactionChart() {
         </div>
     )
 }
+
+export default TransactionChart

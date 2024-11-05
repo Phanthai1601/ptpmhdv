@@ -22,7 +22,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     )
 }
 
-export default function BuyerProfilePieChart() {
+const BuyerProfilePieChart = () => {
     return (
         <div className="max-w-[20rem] w-full h-[22rem] bg-white p-4 rounded-sm border border-gray-200 flex flex-col">
             <strong className="text-gray-700 font-medium">Hồ sơ người mua</strong>
@@ -50,3 +50,4 @@ export default function BuyerProfilePieChart() {
         </div>
     )
 }
+export default BuyerProfilePieChart

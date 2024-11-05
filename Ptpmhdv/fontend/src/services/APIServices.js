@@ -15,3 +15,11 @@ export const getRevenue = async () => {
     })
     return revenueData
 }
+export const getProducts = async () => {
+    let Data = []
+    await axios.get(`${process.env.REACT_APP_BACKEND_API}/laptops`).then((data) => {
+        Data = data.data
+    })
+    console.log(Data)
+    return Data
+}
