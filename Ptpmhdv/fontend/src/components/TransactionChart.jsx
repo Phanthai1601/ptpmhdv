@@ -6,22 +6,21 @@ import convertVNDToUSD from '../library/utils/convertVNDToUSD'
 const TransactionChart = () => {
     const [transactionData, setTransactionData] = useState([])
 
-    const getData = async () => {
-        try {
-            const apiData = await getRevenue()
-            const formattedData = apiData.map((item) => ({
-                id: item.id,
-                name: item.month,
-                'Chi phí': convertVNDToUSD(item.expensive),
-                'Thu nhập': convertVNDToUSD(item.revenue_month)
-            }))
-            setTransactionData(formattedData)
-        } catch (error) {
-            console.error('Error fetching transactions chart:', error)
-        }
-    }
-
     useEffect(() => {
+        const getData = async () => {
+            try {
+                const apiData = await getRevenue()
+                const formattedData = apiData.map((item) => ({
+                    id: item.id,
+                    name: item.month,
+                    'Chi phí': convertVNDToUSD(item.expensive),
+                    'Thu nhập': convertVNDToUSD(item.revenue_month)
+                }))
+                setTransactionData(formattedData)
+            } catch (error) {
+                console.error('Error fetching transactions chart:', error)
+            }
+        }
         getData()
     }, [])
 

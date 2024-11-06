@@ -4,7 +4,7 @@ import Dashboard from './pages/Dashboard'
 import Products from './pages/Products'
 import Orders from './pages/Orders'
 import Customers from './pages/Customers'
-import Transaction from './pages/Transaction'
+// import Transaction from './pages/Transaction'
 import Messages from './pages/Messages'
 import Settings from './pages/Settings'
 import Home from './pages/Home'
@@ -30,7 +30,7 @@ const App = () => {
                     <Route path="products" element={<Products />} />
                     <Route path="orders" element={<Orders />} />
                     <Route path="customers" element={<Customers />} />
-                    <Route path="transactions" element={<Transaction />} />
+                    {/* <Route path="transactions" element={<Transaction />} /> */}
                     <Route path="messages" element={<Messages />} />
                     <Route path="settings" element={<Settings />} />
                 </Route>

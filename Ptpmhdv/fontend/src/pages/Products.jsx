@@ -14,7 +14,6 @@ const Products = () => {
     const [isConfirmDeleteVisible, setIsConfirmDeleteVisible] = useState(false)
     const [selectedProduct, setSelectedProduct] = useState(null)
     const [productIdToDelete, setProductIdToDelete] = useState(null)
-
     const getData = async () => {
         try {
             const apiData = await getProducts()
@@ -23,7 +22,6 @@ const Products = () => {
             console.error('Error fetching product data:', error)
         }
     }
-
     useEffect(() => {
         getData()
     }, [])

@@ -1,28 +1,40 @@
 import axios from 'axios'
 
 export const getAllPopularProducts = async () => {
-    let productData = []
-    await axios.get(`${process.env.REACT_APP_BACKEND_API}/laptops/bestSelling`).then((data) => {
-        productData = data.data
-    })
-    return productData
+    try {
+        let productData = []
+        await axios.get(`${process.env.REACT_APP_BACKEND_API}/laptops/bestSelling`).then((data) => {
+            productData = data.data
+        })
+        return productData
+    } catch (error) {
+        console.log('Error fetching  popular product:', error)
+    }
 }
 
 export const getRevenue = async () => {
-    let revenueData = []
-    await axios.get(`${process.env.REACT_APP_BACKEND_API}/revenue`).then((data) => {
-        revenueData = data.data
-    })
-    return revenueData
+    try {
+        let revenueData = []
+        await axios.get(`${process.env.REACT_APP_BACKEND_API}/revenue`).then((data) => {
+            revenueData = data.data
+        })
+        return revenueData
+    } catch (error) {
+        console.log('Error fetching  revenue:', error)
+    }
 }
 
 export const getProducts = async () => {
-    let Data = []
-    await axios.get(`${process.env.REACT_APP_BACKEND_API}/laptops`).then((data) => {
-        Data = data.data
-    })
-    console.log(Data)
-    return Data
+    try {
+        let Data = []
+        await axios.get(`${process.env.REACT_APP_BACKEND_API}/laptops`).then((data) => {
+            Data = data.data
+            Data.sort((a, b) => a.id - b.id)
+        })
+        return Data
+    } catch (error) {
+        console.log('Error fetching  product:', error)
+    }
 }
 
 export const addProduct = async (newProduct) => {
@@ -91,6 +103,16 @@ export const getBuyerCustomers = async () => {
         }
     } catch (error) {
         console.error('Error fetching customer statistics:', error)
+        throw error
+    }
+}
+
+export const getProductOrders = async () => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_API}/product_order`)
+        return response.data
+    } catch (error) {
+        console.error('Error fetching  product_order:', error)
         throw error
     }
 }
