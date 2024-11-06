@@ -1,49 +1,79 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Product;
 import com.example.demo.model.User;
-import com.example.demo.service.LaptopService;
 import com.example.demo.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("api/users")
 @Tag(name = "User Controller")
 public class UserController {
+
     @Autowired
     private UserService userService;
-
-    @Operation(summary = "Get all user", description = "Api get all user")
-    @GetMapping()
-    public List<User> getAllUser() {
+    @Operation(summary = "Get all user", description = "Get list User")
+    @GetMapping
+    public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
-    @GetMapping("/statistics/total")
-    public long getUserStatistics() {
-        long totalUsers = userService.sumUsers();
 
 
-        return totalUsers;
-    }
-    @GetMapping("/statistics/male")
-    public long getUserMale() {
-        long totalMale = userService.getUserMale();
-
-        return totalMale;
-    }
-    @GetMapping("/statistics/female")
-    public long getUserFemale() {
-        long totalFemale = userService.getUserFemale();
-
-        return totalFemale;
+    @GetMapping("/{id}")
+    @Operation(summary = "Get user by id")
+    public ResponseEntity<User> getUserById(@PathVariable int id) {
+        Optional<User> user = userService.getUserById(id);
+        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 
+    @PostMapping
+    @Operation(summary = "create user")
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User createdUser = userService.saveUser(user);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+    }
+
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete user by id")
+    public ResponseEntity<Void> deleteUser(@PathVariable int id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Update use by id")
+    @PutMapping("/{userId}")
+    public ResponseEntity<User> updateUser(@PathVariable Integer userId,
+                                           @RequestParam String fullname,
+                                           @RequestParam String email,
+                                           @RequestParam String phone,
+                                           @RequestParam String password,
+                                           @RequestParam String address,
+                                           @RequestParam String gender) {
+        userService.updateUser(fullname, email, phone, password, address, gender, userId);
+        return ResponseEntity.ok().build();
+    }
+    @Operation(summary = "get total user")
+    @GetMapping("/count")
+    public ResponseEntity<Integer> countUsers() {
+        return ResponseEntity.ok(userService.sumUsers());
+    }
+    @Operation(summary = "get total male")
+    @GetMapping("/count/male")
+    public ResponseEntity<Integer> countMaleUsers() {
+        return ResponseEntity.ok(userService.getUserMale());
+    }
+    @Operation(summary = "get total female")
+    @GetMapping("/count/female")
+    public ResponseEntity<Integer> countFemaleUsers() {
+        return ResponseEntity.ok(userService.getUserFemale());
+    }
 }
