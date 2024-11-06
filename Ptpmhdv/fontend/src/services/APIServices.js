@@ -1,4 +1,5 @@
 import axios from 'axios'
+import convertVNDToUSD from '../library/utils/convertVNDToUSD'
 
 export const getAllPopularProducts = async () => {
     try {
@@ -82,7 +83,7 @@ export const getProductById = async (productId) => {
 
 export const getCustomers = async () => {
     try {
-        const response = await axios.get(`${process.env.REACT_APP_BACKEND_API}/user`)
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_API}/users`)
         return response.data
     } catch (error) {
         console.error('Error get customer:', error)
@@ -93,8 +94,8 @@ export const getCustomers = async () => {
 export const getBuyerCustomers = async () => {
     try {
         const [maleResponse, femaleResponse] = await Promise.all([
-            axios.get(`${process.env.REACT_APP_BACKEND_API}/user/statistics/male`),
-            axios.get(`${process.env.REACT_APP_BACKEND_API}/user/statistics/female`)
+            axios.get(`${process.env.REACT_APP_BACKEND_API}/users/count/male`),
+            axios.get(`${process.env.REACT_APP_BACKEND_API}/users/count/female`)
         ])
 
         return {
@@ -102,7 +103,7 @@ export const getBuyerCustomers = async () => {
             female: femaleResponse.data
         }
     } catch (error) {
-        console.error('Error fetching customer statistics:', error)
+        console.error('Error fetching customer :', error)
         throw error
     }
 }
@@ -113,6 +114,38 @@ export const getProductOrders = async () => {
         return response.data
     } catch (error) {
         console.error('Error fetching  product_order:', error)
+        throw error
+    }
+}
+
+export const getStasGrid = async () => {
+    try {
+        const [revenue, countUsers, orders] = await Promise.all([
+            axios.get(`${process.env.REACT_APP_BACKEND_API}/revenue`),
+            axios.get(`${process.env.REACT_APP_BACKEND_API}/users/count`),
+            axios.get(`${process.env.REACT_APP_BACKEND_API}/orders`)
+        ])
+
+        const total_sales = revenue.data.reduce((sum, item) => {
+            return sum + item.revenue_month
+        }, 0)
+
+        const total_expense = revenue.data.reduce((sum, item) => {
+            return sum + item.expensive
+        }, 0)
+
+        return {
+            total_sales: convertVNDToUSD(total_sales),
+            total_sales_change: +234,
+            total_customer: countUsers.data,
+            total_customer_change: -2,
+            total_expense: convertVNDToUSD(total_expense),
+            total_expense_change: +456,
+            total_orders: orders.data.length,
+            total_orders_change: +2
+        }
+    } catch (error) {
+        console.error('Error fetching customer data:', error)
         throw error
     }
 }

@@ -1,18 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoBagHandle, IoCart, IoPeople, IoPieChart } from 'react-icons/io5'
+import { getStasGrid } from '../services/APIServices'
 
-const dataTotal = {
-    total_sales: 23434.56,
-    total_sales_change: +234,
-    total_expense: 9434,
-    total_expense_change: +456,
-    total_customer: 54646,
-    total_customer_change: -45,
-    total_orders: 2423,
-    total_orders_change: -35
-}
+// const dataTotal = {
+//     total_sales: 23434.56,
+//     total_sales_change: +234,
+//     total_expense: 9434,
+//     total_expense_change: +456,
+//     total_customer: 54646,
+//     total_customer_change: -45,
+//     total_orders: 2423,
+//     total_orders_change: -35
+// }
 
 const DashboardStatsGrid = () => {
+    const [dataTotal, setData] = useState({})
+    const [dataFetched, setDataFetched] = useState(false)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const Data = await getStasGrid()
+                setData(Data)
+                setDataFetched(true)
+            } catch (error) {
+                console.error('Error fetching customer data:', error)
+            }
+        }
+
+        if (!dataFetched) {
+            fetchData()
+        }
+    }, [dataFetched])
     return (
         <div className="flex flex-wrap gap-4 w-full">
             <BoxWrapper>

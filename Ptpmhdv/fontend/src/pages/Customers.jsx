@@ -28,6 +28,7 @@ const Customers = () => {
                         <th className="border border-gray-300 p-2 text-gray-700">Địa chỉ</th>
                         <th className="border border-gray-300 p-2 text-gray-700">Sdt</th>
                         <th className="border border-gray-300 p-2 text-gray-700">Giới tính</th>
+                        <th className="border border-gray-300 p-2 text-gray-700">Quyền</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,6 +40,15 @@ const Customers = () => {
                             <td className="border border-gray-300 p-2">{customer.address}</td>
                             <td className="border border-gray-300 p-2">{customer.phone}</td>
                             <td className="border border-gray-300 p-2">{customer.gender === 'Male' ? 'Nam' : 'Nữ'}</td>
+                            <td
+                                className={`border border-gray-300 p-2 ${
+                                    customer.role === 'Admin'
+                                        ? 'text-sky-600 bg-sky-100'
+                                        : 'text-yellow-600 bg-yellow-100'
+                                }`}
+                            >
+                                {customer.role === 'Admin' ? 'Quản trị viên' : 'Người dùng'}
+                            </td>
                         </tr>
                     ))}
                 </tbody>
