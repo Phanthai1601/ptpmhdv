@@ -68,7 +68,7 @@ const Products = () => {
     const handleSave = async (product) => {
         if (selectedProduct) {
             try {
-                await updateProduct({ ...product, id: selectedProduct.id }) // Truyền ID sản phẩm vào object
+                await updateProduct({ ...product, id: selectedProduct.id })
             } catch (error) {
                 console.log('Error updating product:', error)
             }
@@ -91,7 +91,7 @@ const Products = () => {
         <div className="flex">
             <div className="bg-white px-4 pt-3 pb-4 rounded-sm border border-gray-200 flex-1 overflow-auto">
                 <div className="flex justify-between items-center">
-                    <strong className="text-gray-700 font-medium">Các sản phẩm</strong>
+                    <strong className="text-gray-700 font-medium">Danh sách sản phẩm</strong>
                     <button
                         className="bg-blue-700 text-white py-2 px-3 rounded flex items-center"
                         onClick={handleAddNew}

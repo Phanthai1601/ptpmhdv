@@ -67,3 +67,30 @@ export const getProductById = async (productId) => {
         throw error
     }
 }
+
+export const getCustomers = async () => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_API}/user`)
+        return response.data
+    } catch (error) {
+        console.error('Error get customer:', error)
+        throw error
+    }
+}
+
+export const getBuyerCustomers = async () => {
+    try {
+        const [maleResponse, femaleResponse] = await Promise.all([
+            axios.get(`${process.env.REACT_APP_BACKEND_API}/user/statistics/male`),
+            axios.get(`${process.env.REACT_APP_BACKEND_API}/user/statistics/female`)
+        ])
+
+        return {
+            male: maleResponse.data,
+            female: femaleResponse.data
+        }
+    } catch (error) {
+        console.error('Error fetching customer statistics:', error)
+        throw error
+    }
+}
