@@ -63,6 +63,21 @@ const FormProduct = ({ product, onSave, onClose }) => {
         setTimeout(onClose, 400)
     }
 
+    const fields = [
+        { label: 'Ram', name: 'ram' },
+        { label: 'SSD', name: 'ssd' },
+        { label: 'Giá bán', name: 'sale_price' },
+        { label: 'Giá cũ', name: 'old_price' },
+        { label: '% giảm giá', name: 'discount_percentage' },
+        { label: 'Quà tặng', name: 'gift' },
+        { label: 'Màn hình', name: 'screen' },
+        { label: 'CPU', name: 'cpu' },
+        { label: 'Card đồ hoạ', name: 'graphics_card' },
+        { label: 'Pin', name: 'battery' },
+        { label: 'Khối lượng', name: 'weight' },
+        { label: 'Kho', name: 'stock' }
+    ]
+
     return (
         <>
             <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={handleClose}></div>
@@ -101,28 +116,13 @@ const FormProduct = ({ product, onSave, onClose }) => {
                             />
                         </div>
 
-                        {[
-                            'ram',
-                            'ssd',
-                            'sale_price',
-                            'old_price',
-                            'discount_percentage',
-                            'gift',
-                            'screen',
-                            'cpu',
-                            'graphics_card',
-                            'battery',
-                            'weight',
-                            'stock'
-                        ].map((key) => (
-                            <div key={key} className="mb-2">
-                                <label className="block text-sm font-medium text-gray-500">
-                                    {key.charAt(0).toUpperCase() + key.slice(1)} {/* Capitalize the label */}
-                                </label>
+                        {fields.map(({ label, name }) => (
+                            <div key={name} className="mb-2">
+                                <label className="block text-sm font-medium text-gray-500">{label}</label>
                                 <input
                                     type="text"
-                                    name={key}
-                                    value={formData[key]}
+                                    name={name}
+                                    value={formData[name]}
                                     onChange={handleChange}
                                     className="border rounded w-full p-2"
                                     required

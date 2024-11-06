@@ -4,15 +4,16 @@ import { getAllPopularProducts } from '../services/APIServices'
 
 const PopularProducts = () => {
     const [popularProducts, setPopularProducts] = useState([])
-    const getData = async () => {
-        try {
-            const data = await getAllPopularProducts()
-            setPopularProducts(data)
-        } catch (error) {
-            console.error('Error fetching popular products:', error)
-        }
-    }
+
     useEffect(() => {
+        const getData = async () => {
+            try {
+                const data = await getAllPopularProducts()
+                setPopularProducts(data)
+            } catch (error) {
+                console.error('Error fetching popular products:', error)
+            }
+        }
         getData()
     }, [])
     return (

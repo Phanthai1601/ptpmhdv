@@ -3,7 +3,7 @@ import {
     HiOutlineCube,
     HiOutlineShoppingCart,
     HiOutlineUsers,
-    HiOutlineDocumentText,
+    // HiOutlineDocumentText,
     HiOutlineAnnotation,
     HiOutlineCog
 } from 'react-icons/hi'
@@ -33,12 +33,12 @@ export const DASHBOARD_SIDEBAR_LINKS = [
         path: '/admin/customers',
         icon: <HiOutlineUsers />
     },
-    {
-        key: 'transactions',
-        label: 'Giao dịch',
-        path: '/admin/transactions',
-        icon: <HiOutlineDocumentText />
-    },
+    // {
+    //     key: 'transactions',
+    //     label: 'Giao dịch',
+    //     path: '/admin/transactions',
+    //     icon: <HiOutlineDocumentText />
+    // },
     {
         key: 'messages',
         label: 'Tin nhắn',
