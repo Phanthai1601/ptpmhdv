@@ -163,7 +163,7 @@ export const addCustomer = async (customer) => {
 export const updateCustomer = async (updateCustomer) => {
     try {
         const response = await axios.put(
-            `${process.env.REACT_APP_BACKEND_API}/users/${updateCustomer.userId}`,
+            `${process.env.REACT_APP_BACKEND_API}/users/${updateCustomer.id}`,
             updateCustomer
         )
         return response.data

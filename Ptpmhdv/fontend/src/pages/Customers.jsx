@@ -49,6 +49,9 @@ const Customers = () => {
     const handleDelete = async () => {
         if (customerIdToDelete) {
             try {
+                setTimeout(() => {
+                    setIsConfirmDeleteVisible(false)
+                }, 100)
                 await deleteCustomer(customerIdToDelete)
                 await getData()
             } catch (error) {
