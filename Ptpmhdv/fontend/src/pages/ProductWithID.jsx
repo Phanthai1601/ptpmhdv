@@ -52,7 +52,7 @@ const ProductWithID = () => {
                         </div>
                         <div className="flex justify-between">
                             <span className="font-medium">% Giảm giá:</span>
-                            <span>{product.discount_percentage}%</span>
+                            <span>{product.discount_percentage}</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="font-medium">RAM:</span>

@@ -28,5 +28,6 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<ProductOrder> productOrders;
 }

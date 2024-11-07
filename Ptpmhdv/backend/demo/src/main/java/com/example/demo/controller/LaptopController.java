@@ -58,5 +58,11 @@ public class LaptopController {
         Product updatedLaptop = laptopService.updateLaptop(String.valueOf(id), laptopDetails);
         return ResponseEntity.ok(updatedLaptop);
     }
+    @Operation(summary = "Search Laptop by Name", description = "API find laptop")
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword) {
+        List<Product> arr = laptopService.findLaptop(keyword);
+        return ResponseEntity.ok(arr);
+    }
 
 }

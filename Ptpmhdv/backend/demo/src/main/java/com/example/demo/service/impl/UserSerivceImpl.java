@@ -37,9 +37,21 @@ public class UserSerivceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(String fullname, String email, String phone, String password, String address, String gender, Integer userId) {
-        userRepository.updateUser(fullname, email, phone, password, address, gender, userId);
+    public void updateUser(Integer userId, User user) {
+        User userUpdate = userRepository.findById(Long.valueOf(userId))
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy user với ID: " + userId));
+        userUpdate.setEmail(user.getEmail());
+        userUpdate.setAddress(user.getAddress());
+        userUpdate.setPhone(user.getPhone());
+        userUpdate.setPassword(user.getPassword());
+        userUpdate.setGender(user.getGender());
+        userUpdate.setFullName(user.getFullName());
+        userUpdate.setRole(user.getRole());
+        userRepository.save(userUpdate);
+
     }
+
+
 
     @Override
     public Integer sumUsers() {

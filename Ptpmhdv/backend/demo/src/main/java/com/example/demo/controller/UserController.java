@@ -52,13 +52,8 @@ public class UserController {
     @Operation(summary = "Update use by id")
     @PutMapping("/{userId}")
     public ResponseEntity<User> updateUser(@PathVariable Integer userId,
-                                           @RequestParam String fullname,
-                                           @RequestParam String email,
-                                           @RequestParam String phone,
-                                           @RequestParam String password,
-                                           @RequestParam String address,
-                                           @RequestParam String gender) {
-        userService.updateUser(fullname, email, phone, password, address, gender, userId);
+                                           @RequestParam User user) {
+        userService.updateUser(userId, user);
         return ResponseEntity.ok().build();
     }
     @Operation(summary = "get total user")

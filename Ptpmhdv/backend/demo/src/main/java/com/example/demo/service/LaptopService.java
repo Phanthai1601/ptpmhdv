@@ -13,4 +13,5 @@ public interface LaptopService {
     Product saveLaptop(Product laptop);
     void deleteLaptop(String id);
     Product updateLaptop(String id, Product laptopDetails);
+    List<Product> findLaptop(String keyword);
 }

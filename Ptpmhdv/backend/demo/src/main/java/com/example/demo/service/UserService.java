@@ -10,7 +10,7 @@ public interface UserService {
     Optional<User> getUserById(int id);
     User saveUser(User user);
     void deleteUser(int id);
-    void updateUser(String fullname, String email, String phone, String password, String address, String gender,Integer userId);
+    void updateUser(Integer userId, User user);
     Integer sumUsers();
     Integer getUserMale();
     Integer getUserFemale();

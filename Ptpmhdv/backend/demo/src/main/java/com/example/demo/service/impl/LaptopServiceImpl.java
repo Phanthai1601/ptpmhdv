@@ -63,4 +63,11 @@ public class LaptopServiceImpl implements LaptopService {
 
 
     }
+
+    @Override
+    public List<Product> findLaptop(String keyword) {
+        return laptopRepository.findByNameContainingIgnoreCase(keyword);
+    }
+
+
 }
