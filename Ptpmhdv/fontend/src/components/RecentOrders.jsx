@@ -7,15 +7,21 @@ const RecentOrders = () => {
     const [productOrders, setProductOrders] = useState([])
 
     useEffect(() => {
+        let isMounted = true
         const getData = async () => {
             try {
                 const data = await getProductOrders()
-                setProductOrders(data)
+                if (isMounted) {
+                    setProductOrders(data)
+                }
             } catch (error) {
                 console.error('Error fetching product data:', error)
             }
         }
         getData()
+        return () => {
+            isMounted = false
+        }
     }, [])
 
     return (

@@ -15,23 +15,25 @@ import { getStasGrid } from '../services/APIServices'
 
 const DashboardStatsGrid = () => {
     const [dataTotal, setData] = useState({})
-    const [dataFetched, setDataFetched] = useState(false)
 
     useEffect(() => {
+        let isMounted = true
         const fetchData = async () => {
             try {
                 const Data = await getStasGrid()
-                setData(Data)
-                setDataFetched(true)
+                if (isMounted) {
+                    setData(Data)
+                }
             } catch (error) {
                 console.error('Error fetching customer data:', error)
             }
         }
 
-        if (!dataFetched) {
-            fetchData()
+        fetchData()
+        return () => {
+            isMounted = false
         }
-    }, [dataFetched])
+    }, [])
     return (
         <div className="flex flex-wrap gap-4 w-full">
             <BoxWrapper>

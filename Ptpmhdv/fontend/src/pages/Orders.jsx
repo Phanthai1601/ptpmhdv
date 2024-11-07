@@ -10,29 +10,34 @@ const formatCurrency = (amount) => {
 const Orders = () => {
     const [productOrders, setproductOrders] = useState([])
 
-    const getData = async () => {
-        try {
-            const data = await getProductOrders()
-            const formatData = data.map((item) => ({
-                id: item.id,
-                product_id: item.product.id,
-                product_name: item.product.name,
-                customer_id: item.user.id,
-                customer_name: item.user.fullName,
-                order_date: item.order.orderDate,
-                order_total: formatCurrency(item.price.toString()),
-                current_order_status: item.order.status,
-                shipment_address: item.user.address
-            }))
-
-            setproductOrders(formatData)
-        } catch (error) {
-            console.error('Error fetching product data:', error)
-        }
-    }
-
     useEffect(() => {
+        let isMounted = true
+        const getData = async () => {
+            try {
+                const data = await getProductOrders()
+                const formatData = data.map((item) => ({
+                    id: item.id,
+                    product_id: item.product.id,
+                    product_name: item.product.name,
+                    customer_id: item.user.id,
+                    customer_name: item.user.fullName,
+                    order_date: item.order.orderDate,
+                    order_total: formatCurrency(item.price.toString()),
+                    current_order_status: item.order.status,
+                    shipment_address: item.user.address
+                }))
+
+                if (isMounted) {
+                    setproductOrders(formatData)
+                }
+            } catch (error) {
+                console.error('Error fetching product data:', error)
+            }
+        }
         getData()
+        return () => {
+            isMounted = false
+        }
     }, [])
 
     return (

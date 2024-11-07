@@ -149,3 +149,36 @@ export const getStasGrid = async () => {
         throw error
     }
 }
+
+export const addCustomer = async (customer) => {
+    try {
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_API}/users`, customer)
+        return response.data
+    } catch (error) {
+        console.error('Error adding user:', error)
+        throw error
+    }
+}
+
+export const updateCustomer = async (updateCustomer) => {
+    try {
+        const response = await axios.put(
+            `${process.env.REACT_APP_BACKEND_API}/users/${updateCustomer.userId}`,
+            updateCustomer
+        )
+        return response.data
+    } catch (error) {
+        console.error('Error updating users:', error)
+        throw error
+    }
+}
+
+export const deleteCustomer = async (customerId) => {
+    try {
+        const response = await axios.delete(`${process.env.REACT_APP_BACKEND_API}/users/${customerId}`)
+        return response.data
+    } catch (error) {
+        console.error('Error deleting user:', error)
+        throw error
+    }
+}
