@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import '../assets/css/FormCustomer.scss'
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
 const FormCustomer = ({ customer, onSave, onClose }) => {
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false)
     const [formData, setFormData] = useState({
         userId: '',
         fullName: '',
@@ -31,6 +33,10 @@ const FormCustomer = ({ customer, onSave, onClose }) => {
             })
         }
     }, [customer])
+
+    const handlePasswordVisibility = () => {
+        setIsPasswordVisible(!isPasswordVisible) // Toggle mật khẩu hiển thị/ẩn
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -74,14 +80,33 @@ const FormCustomer = ({ customer, onSave, onClose }) => {
                         {fields.map(({ label, name }) => (
                             <div key={name} className="mb-2">
                                 <label className="block text-sm font-medium text-gray-500">{label}</label>
-                                <input
-                                    type="text"
-                                    name={name}
-                                    value={formData[name]}
-                                    onChange={handleChange}
-                                    className="border rounded w-full p-2"
-                                    required
-                                />
+                                {name === 'password' ? (
+                                    <div className="relative">
+                                        <input
+                                            type={isPasswordVisible ? 'text' : 'password'}
+                                            name={name}
+                                            value={formData[name]}
+                                            onChange={handleChange}
+                                            className="border rounded w-full p-2"
+                                            required
+                                        />
+                                        <span
+                                            onClick={handlePasswordVisibility}
+                                            className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                                        >
+                                            {isPasswordVisible ? <FaEye /> : <FaEyeSlash />}
+                                        </span>
+                                    </div>
+                                ) : (
+                                    <input
+                                        type="text"
+                                        name={name}
+                                        value={formData[name]}
+                                        onChange={handleChange}
+                                        className="border rounded w-full p-2"
+                                        required
+                                    />
+                                )}
                             </div>
                         ))}
 

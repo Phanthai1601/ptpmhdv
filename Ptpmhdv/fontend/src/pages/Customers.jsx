@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { getCustomers, addCustomer, deleteCustomer, updateCustomer } from '../services/APIServices'
 import ReactPaginate from 'react-paginate'
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa'
 import FormCustomer from '../components/CustomerForm'
 import ConfirmDelete from '../components/ConfirmDelete'
+import { useParams } from 'react-router-dom'
 
 const Customers = () => {
+    const { id } = useParams()
     const [customerData, setCustomerData] = useState([])
     const [currentPage, setCurrentPage] = useState(0)
     const [itemsPerPage] = useState(10)
@@ -14,11 +15,13 @@ const Customers = () => {
     const [isConfirmDeleteVisible, setIsConfirmDeleteVisible] = useState(false)
     const [selectedCustomer, setSelectedCustomer] = useState(null)
     const [customerIdToDelete, setCustomerIdToDelete] = useState(null)
+    const [highlightedId, setHighlightedId] = useState(id)
 
     const getData = async () => {
         try {
             const apiData = await getCustomers()
-            setCustomerData(apiData)
+            const data = apiData.filter((item) => item.role !== 'Admin')
+            setCustomerData(data)
         } catch (error) {
             console.error('Error fetching customer data:', error)
         }
@@ -27,6 +30,10 @@ const Customers = () => {
     useEffect(() => {
         getData()
     }, [])
+
+    const handleBackgroundClick = () => {
+        setHighlightedId(null)
+    }
 
     const handlePageClick = (data) => {
         setCurrentPage(data.selected)
@@ -87,7 +94,7 @@ const Customers = () => {
     }
 
     return (
-        <div className="flex">
+        <div className="flex" onClick={handleBackgroundClick}>
             <div className="bg-white px-4 pt-3 pb-4 rounded-sm border border-gray-200 flex-1 overflow-auto">
                 <div className="flex justify-between items-center">
                     <strong className="text-gray-700 font-medium">Danh sách khách hàng</strong>
@@ -116,16 +123,15 @@ const Customers = () => {
                             </thead>
                             <tbody>
                                 {currentCustomers.map((customer) => (
-                                    <tr key={customer.id}>
+                                    <tr
+                                        key={customer.id}
+                                        style={{
+                                            backgroundColor:
+                                                customer.id === Number(highlightedId) ? '#e0f7fa' : 'transparent'
+                                        }}
+                                    >
                                         <td className="py-2 text-xs">{customer.id}</td>
-                                        <td className="py-2 text-xs">
-                                            <Link
-                                                to={`/customers/${customer.id}`}
-                                                className="text-blue-500 hover:underline"
-                                            >
-                                                {customer.fullName}
-                                            </Link>
-                                        </td>
+                                        <td className="py-2 text-xs">{customer.fullName}</td>
                                         <td className="py-2 text-xs">{customer.email}</td>
                                         <td className="py-2 text-xs">{customer.password}</td>
                                         <td className="py-2 text-xs">{customer.phone}</td>

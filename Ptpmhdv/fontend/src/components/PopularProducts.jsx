@@ -9,7 +9,8 @@ const PopularProducts = () => {
         const getData = async () => {
             try {
                 const data = await getAllPopularProducts()
-                setPopularProducts(data)
+                const sortData = data.sort((a, b) => a.id - b.id)
+                setPopularProducts(sortData)
             } catch (error) {
                 console.error('Error fetching popular products:', error)
             }
@@ -22,7 +23,7 @@ const PopularProducts = () => {
             <div className="mt-4 grid grid-cols-1 gap-3">
                 {popularProducts.slice(0, 5).map((product) => (
                     <Link
-                        to={`/products/${product.id}`}
+                        to={`/admin/products/${product.id}`}
                         className="flex items-center hover:no-underline"
                         key={product.id}
                     >
