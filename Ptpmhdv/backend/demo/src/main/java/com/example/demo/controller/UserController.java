@@ -52,7 +52,7 @@ public class UserController {
     @Operation(summary = "Update use by id")
     @PutMapping("/{userId}")
     public ResponseEntity<User> updateUser(@PathVariable Integer userId,
-                                           @RequestParam User user) {
+                                           @RequestBody User user) {
         userService.updateUser(userId, user);
         return ResponseEntity.ok().build();
     }
