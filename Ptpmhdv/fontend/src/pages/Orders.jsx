@@ -62,10 +62,10 @@ const Orders = () => {
                                 <tr key={order.id} className="border-b">
                                     <td>{order.id}</td>
                                     <td>
-                                        <Link to={`/products/${order.product_id}`}>{order.product_name}</Link>
+                                        <Link to={`/admin/products/${order.product_id}`}>{order.product_name}</Link>
                                     </td>
                                     <td>
-                                        <Link to={`/customers/${order.customer_id}`}>{order.customer_name}</Link>
+                                        <Link to={`/admin/customers/${order.customer_id}`}>{order.customer_name}</Link>
                                     </td>
                                     <td>{new Date(order.order_date).toLocaleDateString('vi-VN')}</td>
                                     <td>{order.order_total}</td>

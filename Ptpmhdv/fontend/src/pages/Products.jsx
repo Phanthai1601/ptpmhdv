@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getProducts, addProduct, deleteProduct, updateProduct } from '../services/APIServices'
 import ReactPaginate from 'react-paginate'
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa'
@@ -7,6 +7,8 @@ import FormProduct from '../components/FromProduct'
 import ConfirmDelete from '../components/ConfirmDelete'
 
 const Products = () => {
+    const { id } = useParams()
+    const navigate = useNavigate()
     const [productData, setProductData] = useState([])
     const [currentPage, setCurrentPage] = useState(0)
     const [itemsPerPage] = useState(10)
@@ -14,20 +16,39 @@ const Products = () => {
     const [isConfirmDeleteVisible, setIsConfirmDeleteVisible] = useState(false)
     const [selectedProduct, setSelectedProduct] = useState(null)
     const [productIdToDelete, setProductIdToDelete] = useState(null)
+    const [highlightedId, setHighlightedId] = useState(id)
+
     const getData = async () => {
         try {
-            const apiData = await getProducts()
-            setProductData(apiData)
+            const data = await getProducts()
+            const sortData = data.sort((a, b) => a.id - b.id)
+            setProductData(sortData)
         } catch (error) {
-            console.error('Error fetching product data:', error)
+            console.error('Error fetching products:', error)
         }
     }
+
     useEffect(() => {
         getData()
     }, [])
 
+    useEffect(() => {
+        if (id) {
+            const productIndex = productData.findIndex((product) => product.id === Number(id))
+            if (productIndex !== -1) {
+                const targetPage = Math.floor(productIndex / itemsPerPage)
+                setCurrentPage(targetPage)
+                navigate(`#page-${targetPage + 1}`)
+            }
+        }
+    }, [id, productData, itemsPerPage, navigate])
+
     const handlePageClick = (data) => {
         setCurrentPage(data.selected)
+    }
+
+    const handleBackgroundClick = () => {
+        setHighlightedId(null)
     }
 
     const currentProducts = productData.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
@@ -42,7 +63,7 @@ const Products = () => {
             try {
                 setTimeout(() => {
                     setIsConfirmDeleteVisible(false)
-                }, 400)
+                }, 100)
                 await deleteProduct(productIdToDelete)
                 await getData()
             } catch (error) {
@@ -86,7 +107,7 @@ const Products = () => {
     }
 
     return (
-        <div className="flex">
+        <div className="flex" onClick={handleBackgroundClick}>
             <div className="bg-white px-4 pt-3 pb-4 rounded-sm border border-gray-200 flex-1 overflow-auto">
                 <div className="flex justify-between items-center">
                     <strong className="text-gray-700 font-medium">Danh sách sản phẩm</strong>
@@ -122,7 +143,13 @@ const Products = () => {
                             </thead>
                             <tbody>
                                 {currentProducts.map((product) => (
-                                    <tr key={product.id}>
+                                    <tr
+                                        key={product.id}
+                                        style={{
+                                            backgroundColor:
+                                                product.id === Number(highlightedId) ? '#e0f7fa' : 'transparent'
+                                        }}
+                                    >
                                         <td className="py-2 text-xs">{product.id}</td>
                                         <td className="py-2 text-xs">
                                             <Link

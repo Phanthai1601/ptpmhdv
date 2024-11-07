@@ -27,10 +27,13 @@ const App = () => {
                 {/* Đường dẫn đến các trang dành cho quản trị viên */}
                 <Route path="/admin" element={<Layout />}>
                     <Route index element={<Dashboard />} />
-                    <Route path="products" element={<Products />} />
+                    <Route path="products" element={<Products />}>
+                        <Route path=":id" element={<Products />} />
+                    </Route>
                     <Route path="orders" element={<Orders />} />
-                    <Route path="customers" element={<Customers />} />
-                    {/* <Route path="transactions" element={<Transaction />} /> */}
+                    <Route path="customers" element={<Customers />}>
+                        <Route path=":id" element={<Customers />} />
+                    </Route>
                     <Route path="messages" element={<Messages />} />
                     <Route path="settings" element={<Settings />} />
                 </Route>
