@@ -1,6 +1,6 @@
 import React from 'react'
 import { RiAdminFill } from 'react-icons/ri'
-import { DASHBOARD_SIDEBAR_BOTTOM_LINKS, DASHBOARD_SIDEBAR_LINKS } from '../../library/consts/navigation'
+import { DASHBOARD_SIDEBAR_LINKS } from '../../library/consts/navigation'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 import { HiOutlineLogout } from 'react-icons/hi'
@@ -22,10 +22,11 @@ const Sidebar = () => {
                 ))}
             </div>
             <div className="flex flex-col gap-0.5 pt-2 border-t border-neutral-700">
-                {DASHBOARD_SIDEBAR_BOTTOM_LINKS.map((item) => (
-                    <SidebarLink key={item.key} item={item} />
-                ))}
-                <div className={classNames('text-red-500 cursor-pointer', linkClasses)} onClick={() => navigate('/')}>
+                <div
+                    role="button"
+                    className={classNames('text-red-500 cursor-pointer', linkClasses)}
+                    onClick={() => navigate('/')}
+                >
                     <span className="text-xl">
                         <HiOutlineLogout />
                     </span>

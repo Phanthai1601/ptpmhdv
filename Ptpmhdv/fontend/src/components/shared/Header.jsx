@@ -87,7 +87,7 @@ const Header = () => {
                                     </div>
                                 )}
                             </Menu.Item> */}
-                            <Menu.Item>
+                            {/* <Menu.Item>
                                 {({ active }) => (
                                     <div
                                         role="button"
@@ -100,7 +100,7 @@ const Header = () => {
                                         Cài đặt
                                     </div>
                                 )}
-                            </Menu.Item>
+                            </Menu.Item> */}
                             <Menu.Item>
                                 {({ active }) => (
                                     <div

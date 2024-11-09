@@ -6,7 +6,7 @@ import Orders from './pages/Orders'
 import Customers from './pages/Customers'
 // import Transaction from './pages/Transaction'
 // import Messages from './pages/Messages'
-import Settings from './pages/Settings'
+// import Settings from './pages/Settings'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -35,7 +35,7 @@ const App = () => {
                         <Route path=":id" element={<Customers />} />
                     </Route>
                     {/* <Route path="messages" element={<Messages />} /> */}
-                    <Route path="settings" element={<Settings />} />
+                    {/* <Route path="settings" element={<Settings />} /> */}
                 </Route>
             </Routes>
         </Router>
