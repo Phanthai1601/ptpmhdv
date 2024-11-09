@@ -3,8 +3,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { getProducts, addProduct, deleteProduct, updateProduct } from '../services/APIServices'
 import ReactPaginate from 'react-paginate'
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa'
-import FormProduct from '../components/FromProduct'
-import ConfirmDelete from '../components/ConfirmDelete'
+import FormProduct from '../components/admin/FromProduct'
+import ConfirmDelete from '../components/admin/ConfirmDelete'
 
 const Products = () => {
     const { id } = useParams()
@@ -38,20 +38,20 @@ const Products = () => {
             if (productIndex !== -1) {
                 const targetPage = Math.floor(productIndex / itemsPerPage)
                 setCurrentPage(targetPage)
+                setHighlightedId(Number(id))
                 navigate(`#page-${targetPage + 1}`)
             }
         }
     }, [id, productData, itemsPerPage, navigate])
 
+    const clearHighlight = () => {
+        setHighlightedId(null)
+        navigate('/admin/products')
+    }
+
     const handlePageClick = (data) => {
         setCurrentPage(data.selected)
     }
-
-    const handleBackgroundClick = () => {
-        setHighlightedId(null)
-    }
-
-    const currentProducts = productData.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
 
     const handleEdit = (product) => {
         setSelectedProduct(product)
@@ -106,8 +106,10 @@ const Products = () => {
         setIsFormVisible(false)
     }
 
+    const currentProducts = productData.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
+
     return (
-        <div className="flex" onClick={handleBackgroundClick}>
+        <div role="button" className="flex" onClick={clearHighlight}>
             <div className="bg-white px-4 pt-3 pb-4 rounded-sm border border-gray-200 flex-1 overflow-auto">
                 <div className="flex justify-between items-center">
                     <strong className="text-gray-700 font-medium">Danh sách sản phẩm</strong>
@@ -199,17 +201,12 @@ const Products = () => {
                     previousLabel={'Trước'}
                     nextLabel={'Sau'}
                     breakLabel={'...'}
-                    breakClassName={'break-me'}
                     pageCount={Math.ceil(productData.length / itemsPerPage)}
-                    marginPagesDisplayed={2}
-                    pageRangeDisplayed={5}
                     onPageChange={handlePageClick}
                     containerClassName={'flex space-x-2 pt-2'}
-                    subContainerClassName={'pages pagination'}
-                    activeClassName={'active'}
+                    activeClassName={'font-bold text-blue-500'}
                 />
             </div>
-
             {isFormVisible && <FormProduct product={selectedProduct} onSave={handleSave} onClose={handleCloseForm} />}
             {isConfirmDeleteVisible && (
                 <ConfirmDelete

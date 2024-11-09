@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { IoBagHandle, IoCart, IoPeople, IoPieChart } from 'react-icons/io5'
-import { getStasGrid } from '../services/APIServices'
+import { getStasGrid } from '../../services/APIServices'
 
 // const dataTotal = {
 //     total_sales: 23434.56,

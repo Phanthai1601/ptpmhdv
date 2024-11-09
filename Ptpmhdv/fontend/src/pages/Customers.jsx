@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { getCustomers, addCustomer, deleteCustomer, updateCustomer } from '../services/APIServices'
 import ReactPaginate from 'react-paginate'
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa'
-import FormCustomer from '../components/CustomerForm'
-import ConfirmDelete from '../components/ConfirmDelete'
+import FormCustomer from '../components/admin/CustomerForm'
+import ConfirmDelete from '../components/admin/ConfirmDelete'
 import { useParams } from 'react-router-dom'
 
 const Customers = () => {

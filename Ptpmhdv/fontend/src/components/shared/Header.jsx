@@ -1,55 +1,25 @@
 import React, { Fragment } from 'react'
-import { HiOutlineBell, HiOutlineChatAlt, HiOutlineLogout, HiOutlineSearch } from 'react-icons/hi'
+import { HiOutlineBell, HiOutlineLogout } from 'react-icons/hi'
 import { Menu, Popover, Transition } from '@headlessui/react'
 import classNames from 'classnames'
 import logoAdmin from '../../assets/icons/hacker.png'
-import { useNavigate } from 'react-router-dom'
+import SearchProduct from '../admin/SearchProduct'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const Header = () => {
+    const location = useLocation()
+    // Kiểm tra URL hiện tại để xác định loại search
+    const isProductPage = location.pathname.startsWith('/admin/products')
+    // const isUserPage = location.pathname.startsWith('/admin/users')
     const navigate = useNavigate()
+
     return (
         <div className="bg-white h-16 px-4 flex items-center border-b border-gray-200">
-            <div className="relative">
-                <HiOutlineSearch fontSize={20} className="text-gray-400 absolute top-1/2 -translate-y-1/2 left-3" />
-                <input
-                    type="text"
-                    placeholder="Tìm kiếm..."
-                    className="text-sm focus:outline-none active:outline-none h-10 w-[24rem] border border-gray-300 rounded-sm pl-11 pr-4"
-                />
+            <div className="bg-white h-16 px-4 flex items-center border-b border-gray-200">
+                {isProductPage && <SearchProduct />}
+                {/* {isUserPage && <SearchUser />}  */}
             </div>
             <div className="flex items-center gap-2 mr-2 ml-auto">
-                {/* this is message */}
-                <Popover className="relative">
-                    {({ open }) => (
-                        <>
-                            <Popover.Button
-                                className={classNames(
-                                    open && 'gb-gray-100',
-                                    'inline-flex items-center text-gray-700 hover:text-opacity-100 focus:outline-none active:bg-gray-100'
-                                )}
-                            >
-                                <HiOutlineChatAlt fontSize={24} />
-                            </Popover.Button>
-                            <Transition
-                                as={Fragment}
-                                enter="transition ease-out duration-200"
-                                enterFrom="opacity-0 translate-y-1"
-                                enterTo="opacity-100 translate-y-0"
-                                leave="transition ease-in duration-150"
-                                leaveFrom="opacity-100 translate-y-0"
-                                leaveTo="opacity-0 translate-y-1"
-                            >
-                                <Popover.Panel className="absolute right-0 z-10 mt-1/2 w-80">
-                                    <div className="bg-white rounded-sm shadow-md ring-1 ring-black ring-opacity-5 px-2 py-2.5">
-                                        <strong className="text-gray-700 font-medium">Tin nhắn</strong>
-                                        <div className="mt-2 py-1 text-sm">Đây là bảng tin nhắn.</div>
-                                    </div>
-                                </Popover.Panel>
-                            </Transition>
-                        </>
-                    )}
-                </Popover>
-
                 {/* this is notifications */}
                 <Popover className="relative">
                     {({ open }) => (
@@ -120,6 +90,7 @@ const Header = () => {
                             <Menu.Item>
                                 {({ active }) => (
                                     <div
+                                        role="button"
                                         className={classNames(
                                             active && 'bg-gray-100',
                                             'text-gray-700 focus:bg-gary-200 block cursor-pointer rounded-sm px-4 py-2'
@@ -133,6 +104,7 @@ const Header = () => {
                             <Menu.Item>
                                 {({ active }) => (
                                     <div
+                                        role="button"
                                         className={classNames(
                                             active ? 'bg-gray-100' : '',
                                             'flex items-center gap-1 text-gray-700 focus:bg-gray-200 cursor-pointer rounded-sm px-4 py-2'

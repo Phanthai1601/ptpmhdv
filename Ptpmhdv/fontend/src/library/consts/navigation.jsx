@@ -4,7 +4,7 @@ import {
     HiOutlineShoppingCart,
     HiOutlineUsers,
     // HiOutlineDocumentText,
-    HiOutlineAnnotation,
+    // HiOutlineAnnotation,
     HiOutlineCog
 } from 'react-icons/hi'
 
@@ -22,29 +22,29 @@ export const DASHBOARD_SIDEBAR_LINKS = [
         icon: <HiOutlineCube />
     },
     {
-        key: 'orders',
-        label: 'Đơn hàng',
-        path: '/admin/orders',
-        icon: <HiOutlineShoppingCart />
-    },
-    {
         key: 'customers',
         label: 'Khách hàng',
         path: '/admin/customers',
         icon: <HiOutlineUsers />
     },
+    {
+        key: 'orders',
+        label: 'Đơn hàng',
+        path: '/admin/orders',
+        icon: <HiOutlineShoppingCart />
+    }
     // {
     //     key: 'transactions',
     //     label: 'Giao dịch',
     //     path: '/admin/transactions',
     //     icon: <HiOutlineDocumentText />
     // },
-    {
-        key: 'messages',
-        label: 'Tin nhắn',
-        path: '/admin/messages',
-        icon: <HiOutlineAnnotation />
-    }
+    // {
+    //     key: 'messages',
+    //     label: 'Tin nhắn',
+    //     path: '/admin/messages',
+    //     icon: <HiOutlineAnnotation />
+    // }
 ]
 
 export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import '../assets/css/FormCustomer.scss'
+import '../../assets/css/FormCustomer.scss'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 
 const FormCustomer = ({ customer, onSave, onClose }) => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getOrderStatus } from '../library/utils/get-order-status'
-import { getProductOrders } from '../services/APIServices'
+import { getOrderStatus } from '../../library/utils/get-order-status'
+import { getProductOrders } from '../../services/APIServices'
 
 const RecentOrders = () => {
     const [productOrders, setProductOrders] = useState([])

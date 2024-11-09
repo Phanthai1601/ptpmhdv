@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
-import { getRevenue } from '../services/APIServices'
-import convertVNDToUSD from '../library/utils/convertVNDToUSD'
+import { getRevenue } from '../../services/APIServices'
+import convertVNDToUSD from '../../library/utils/convertVNDToUSD'
 
 const TransactionChart = () => {
     const [transactionData, setTransactionData] = useState([])

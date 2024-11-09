@@ -44,7 +44,6 @@ export const addProduct = async (newProduct) => {
         return response.data
     } catch (error) {
         console.error('Error adding product:', error)
-        throw error
     }
 }
 
@@ -57,7 +56,6 @@ export const updateProduct = async (updatedProduct) => {
         return response.data
     } catch (error) {
         console.error('Error updating product:', error)
-        throw error
     }
 }
 
@@ -67,7 +65,6 @@ export const deleteProduct = async (productId) => {
         return response.data
     } catch (error) {
         console.error('Error deleting product:', error)
-        throw error
     }
 }
 
@@ -77,7 +74,6 @@ export const getProductById = async (productId) => {
         return response.data
     } catch (error) {
         console.error('Error get product by id:', error)
-        throw error
     }
 }
 
@@ -87,7 +83,6 @@ export const getCustomers = async () => {
         return response.data
     } catch (error) {
         console.error('Error get customer:', error)
-        throw error
     }
 }
 
@@ -104,7 +99,6 @@ export const getBuyerCustomers = async () => {
         }
     } catch (error) {
         console.error('Error fetching customer :', error)
-        throw error
     }
 }
 
@@ -114,7 +108,6 @@ export const getProductOrders = async () => {
         return response.data
     } catch (error) {
         console.error('Error fetching  product_order:', error)
-        throw error
     }
 }
 
@@ -146,7 +139,6 @@ export const getStasGrid = async () => {
         }
     } catch (error) {
         console.error('Error fetching customer data:', error)
-        throw error
     }
 }
 
@@ -156,7 +148,6 @@ export const addCustomer = async (customer) => {
         return response.data
     } catch (error) {
         console.error('Error adding user:', error)
-        throw error
     }
 }
 
@@ -169,7 +160,6 @@ export const updateCustomer = async (updateCustomer) => {
         return response.data
     } catch (error) {
         console.error('Error updating users:', error)
-        throw error
     }
 }
 
@@ -179,6 +169,17 @@ export const deleteCustomer = async (customerId) => {
         return response.data
     } catch (error) {
         console.error('Error deleting user:', error)
-        throw error
+    }
+}
+
+export const searchProduct = async (query) => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_API}/laptops/search`, {
+            params: { keyword: query }
+        })
+        console.log(response.data)
+        return response.data
+    } catch (error) {
+        console.error('Error search laptops:', error)
     }
 }

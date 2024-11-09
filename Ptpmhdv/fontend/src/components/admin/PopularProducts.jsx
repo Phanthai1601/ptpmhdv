@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getAllPopularProducts } from '../services/APIServices'
+import { getAllPopularProducts } from '../../services/APIServices'
 
 const PopularProducts = () => {
     const [popularProducts, setPopularProducts] = useState([])

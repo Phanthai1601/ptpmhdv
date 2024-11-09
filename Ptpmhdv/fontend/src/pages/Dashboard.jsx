@@ -1,9 +1,9 @@
 import React from 'react'
-import DashboardStatsGrid from '../components/DashboardStatsGrid'
-import TransactionChart from '../components/TransactionChart'
-import BuyerProfileChart from '../components/BuyerProfileChart'
-import RecentOrders from '../components/RecentOrders'
-import PopularProducts from '../components/PopularProducts'
+import DashboardStatsGrid from '../components/admin/DashboardStatsGrid'
+import TransactionChart from '../components/admin/TransactionChart'
+import BuyerProfileChart from '../components/admin/BuyerProfileChart'
+import RecentOrders from '../components/admin/RecentOrders'
+import PopularProducts from '../components/admin/PopularProducts'
 
 const Dashboard = () => {
     return (

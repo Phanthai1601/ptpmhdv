@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import '../assets/css/FormProduct.scss'
+import '../../assets/css/FormProduct.scss'
 
 const FormProduct = ({ product, onSave, onClose }) => {
     const [formData, setFormData] = useState({
