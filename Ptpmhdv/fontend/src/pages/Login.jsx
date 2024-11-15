@@ -6,7 +6,7 @@ const Login = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
-        isAdmin: false // Thêm thuộc tính này để lưu trạng thái checkbox
+        errMessage: ''
     })
     const navigate = useNavigate()
 
@@ -68,18 +68,17 @@ const Login = () => {
                             />
                         </div>
                         <div className="flex items-center">
-                            <input
-                                name="isAdmin"
-                                type="checkbox"
-                                className="mr-2"
-                                checked={formData.isAdmin}
-                                onChange={handleChange}
-                            />
-                            <span className="text-gray-800 text-sm">Đăng nhập với quyền admin</span>
+                            <span
+                                className={
+                                    formData.errMessage.length > 0 ? ' text-red-500 text-orange-500 text-sm' : ''
+                                }
+                            >
+                                {formData.errMessage}
+                            </span>
                         </div>
                     </div>
 
-                    <div className="!mt-12">
+                    <div className="!mt-6">
                         <button
                             type="submit"
                             className="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white"
