@@ -24,7 +24,7 @@ const ConfirmDelete = ({ message, onConfirm, onCancel }) => {
                 <p className="text-gray-600">{message}</p>
                 <div className="mt-4">
                     <button onClick={onConfirm} className="bg-red-600 text-white py-2 px-4 rounded mr-2">
-                        Xóa
+                        Có
                     </button>
                     <button onClick={onCancel} className="bg-gray-300 text-gray-700 py-2 px-4 rounded">
                         Hủy

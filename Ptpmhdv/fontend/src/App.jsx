@@ -1,31 +1,37 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { useState } from 'react'
 import Layout from './components/shared/Layout'
 import Dashboard from './pages/Dashboard'
 import Products from './pages/Products'
 import Orders from './pages/Orders'
 import Customers from './pages/Customers'
-// import Transaction from './pages/Transaction'
-// import Messages from './pages/Messages'
-// import Settings from './pages/Settings'
-import Home from './pages/Home'
 import Login from './pages/Login'
-import Register from './pages/Register'
 import useHideUnimportantErrors from './library/utils/useHideUnimportantErrors'
-import ProductWithID from './pages/ProductWithID'
 
 const App = () => {
+    // Trạng thái đăng nhập tạm thời
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+    // Route bảo vệ đơn giản
+    const ProtectedRoute = ({ children }) => {
+        return isAuthenticated ? children : <Navigate to="/login" replace />
+    }
     useHideUnimportantErrors()
     return (
         <Router>
             <Routes>
-                {/* Đường dẫn trang Home */}
-                <Route path="/" element={<Home />} />
-                <Route path="login" element={<Login />} />
-                <Route path="register" element={<Register />} />
-                <Route path="products/:id" element={<ProductWithID />} />
+                <Route path="/login" element={<Login onLogin={() => setIsAuthenticated(true)} />} />
                 <Route path="*" element={<div className="text-center pt-5">404 - Page Not Found</div>} />
+
                 {/* Đường dẫn đến các trang dành cho quản trị viên */}
-                <Route path="/admin" element={<Layout />}>
+                <Route
+                    path="/admin"
+                    element={
+                        <ProtectedRoute>
+                            <Layout />
+                        </ProtectedRoute>
+                    }
+                >
                     <Route index element={<Dashboard />} />
                     <Route path="products" element={<Products />}>
                         <Route path=":id" element={<Products />} />
@@ -34,8 +40,6 @@ const App = () => {
                     <Route path="customers" element={<Customers />}>
                         <Route path=":id" element={<Customers />} />
                     </Route>
-                    {/* <Route path="messages" element={<Messages />} /> */}
-                    {/* <Route path="settings" element={<Settings />} /> */}
                 </Route>
             </Routes>
         </Router>

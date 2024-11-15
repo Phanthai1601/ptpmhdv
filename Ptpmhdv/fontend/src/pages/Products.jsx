@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import React, { useEffect, useRef, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { getProducts, addProduct, deleteProduct, updateProduct } from '../services/APIServices'
 import ReactPaginate from 'react-paginate'
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa'
 import FormProduct from '../components/admin/FromProduct'
 import ConfirmDelete from '../components/admin/ConfirmDelete'
+import ImagePopup from '../components/shared/ImagePopup'
 
 const Products = () => {
     const { id } = useParams()
@@ -17,14 +18,19 @@ const Products = () => {
     const [selectedProduct, setSelectedProduct] = useState(null)
     const [productIdToDelete, setProductIdToDelete] = useState(null)
     const [highlightedId, setHighlightedId] = useState(id)
+    const productRefs = useRef([])
+    const [isLoading, setIsLoading] = useState(true)
 
     const getData = async () => {
         try {
+            setIsLoading(true)
             const data = await getProducts()
             const sortData = data.sort((a, b) => a.id - b.id)
             setProductData(sortData)
         } catch (error) {
             console.error('Error fetching products:', error)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -33,16 +39,34 @@ const Products = () => {
     }, [])
 
     useEffect(() => {
-        if (id) {
+        productRefs.current = productData.map((_, index) => productRefs.current[index] || React.createRef())
+    }, [productData])
+
+    useEffect(() => {
+        if (id && !isLoading) {
             const productIndex = productData.findIndex((product) => product.id === Number(id))
             if (productIndex !== -1) {
+                // Tính toán trang hiện tại mà sản phẩm thuộc về
                 const targetPage = Math.floor(productIndex / itemsPerPage)
-                setCurrentPage(targetPage)
-                setHighlightedId(Number(id))
+                setCurrentPage(targetPage) // Cập nhật trang
+                setHighlightedId(Number(id)) // Đánh dấu sản phẩm cần cuộn
+
+                // Điều hướng tới trang cần thiết
                 navigate(`#page-${targetPage + 1}`)
+
+                // Đảm bảo rằng chúng ta đang ở đúng trang và đã render xong
+                setTimeout(() => {
+                    const ref = productRefs.current[productIndex]?.current
+                    if (ref) {
+                        ref.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        })
+                    }
+                }, 300)
             }
         }
-    }, [id, productData, itemsPerPage, navigate])
+    }, [id, productData, itemsPerPage, navigate, isLoading])
 
     const clearHighlight = () => {
         setHighlightedId(null)
@@ -128,6 +152,7 @@ const Products = () => {
                                 <tr className="bg-gray-100">
                                     <th className="py-2 text-left text-xs">ID</th>
                                     <th className="py-2 text-left text-xs">Sản phẩm</th>
+                                    <th className="py-2 text-left text-xs">Ảnh</th>
                                     <th className="py-2 text-left text-xs">RAM</th>
                                     <th className="py-2 text-left text-xs">SSD</th>
                                     <th className="py-2 text-left text-xs">Giá bán</th>
@@ -153,13 +178,9 @@ const Products = () => {
                                         }}
                                     >
                                         <td className="py-2 text-xs">{product.id}</td>
-                                        <td className="py-2 text-xs">
-                                            <Link
-                                                to={`/products/${product.id}`}
-                                                className="text-blue-500 hover:underline"
-                                            >
-                                                {product.name}
-                                            </Link>
+                                        <td className="py-2 text-xs">{product.name}</td>
+                                        <td className="py-2 text-xs relative group">
+                                            <ImagePopup image={product.image} altText={product.name} />
                                         </td>
                                         <td className="py-2 text-xs">{product.ram}</td>
                                         <td className="py-2 text-xs">{product.ssd}</td>

@@ -1,17 +1,30 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { HiOutlineBell, HiOutlineLogout } from 'react-icons/hi'
 import { Menu, Popover, Transition } from '@headlessui/react'
 import classNames from 'classnames'
 import logoAdmin from '../../assets/icons/hacker.png'
 import SearchProduct from '../admin/SearchProduct'
 import { useLocation, useNavigate } from 'react-router-dom'
+import ConfirmLogOut from '../admin/ConfirmDelete'
 
 const Header = () => {
     const location = useLocation()
-    // Kiểm tra URL hiện tại để xác định loại search
     const isProductPage = location.pathname.startsWith('/admin/products')
-    // const isUserPage = location.pathname.startsWith('/admin/users')
     const navigate = useNavigate()
+    const [showConfirm, setShowConfirm] = useState(false)
+
+    const handleLogout = () => {
+        setShowConfirm(true)
+    }
+    const handleConfirmLogout = () => {
+        // Thực hiện đăng xuất ở đây, ví dụ như xóa token và chuyển hướng
+        // Xử lý đăng xuất
+        navigate('/')
+    }
+
+    const handleCancelLogout = () => {
+        setShowConfirm(false)
+    }
 
     return (
         <div className="bg-white h-16 px-4 flex items-center border-b border-gray-200">
@@ -109,7 +122,7 @@ const Header = () => {
                                             active ? 'bg-gray-100' : '',
                                             'flex items-center gap-1 text-gray-700 focus:bg-gray-200 cursor-pointer rounded-sm px-4 py-2'
                                         )}
-                                        onClick={() => navigate('/')}
+                                        onClick={handleLogout}
                                     >
                                         <span>Đăng xuất</span>
                                         <span className="text-lg">
@@ -122,6 +135,13 @@ const Header = () => {
                     </Transition>
                 </Menu>
             </div>
+            {showConfirm && (
+                <ConfirmLogOut
+                    message="Bạn có chắc muốn đăng xuất?"
+                    onConfirm={handleConfirmLogout}
+                    onCancel={handleCancelLogout}
+                />
+            )}
         </div>
     )
 }

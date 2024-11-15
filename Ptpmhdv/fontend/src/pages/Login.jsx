@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import logo from '../assets/icons/user-svgrepo-com.svg'
 import { useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Login = ({ onLogin }) => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -21,9 +21,9 @@ const Login = () => {
     useEffect(() => {}, [])
     const handleSubmit = (e) => {
         e.preventDefault()
-        // Xử lý dữ liệu khi nhấn "Login"
         console.log(formData)
-        // Bạn có thể thực hiện các hành động khác ở đây, chẳng hạn như điều hướng hoặc gửi yêu cầu xác thực
+        onLogin() // Cập nhật trạng thái đăng nhập
+        navigate('/admin')
     }
 
     return (
@@ -81,7 +81,7 @@ const Login = () => {
                     <div className="!mt-6">
                         <button
                             type="submit"
-                            className="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white"
+                            className="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white focus:text-gray-600"
                             style={{
                                 background:
                                     'linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%)'
