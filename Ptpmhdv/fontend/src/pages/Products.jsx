@@ -43,30 +43,29 @@ const Products = () => {
     }, [productData])
 
     useEffect(() => {
-        if (id && !isLoading) {
+        if (id && !isLoading && productData.length > 0) {
             const productIndex = productData.findIndex((product) => product.id === Number(id))
             if (productIndex !== -1) {
-                // Tính toán trang hiện tại mà sản phẩm thuộc về
                 const targetPage = Math.floor(productIndex / itemsPerPage)
-                setCurrentPage(targetPage) // Cập nhật trang
-                setHighlightedId(Number(id)) // Đánh dấu sản phẩm cần cuộn
-
-                // Điều hướng tới trang cần thiết
+                setCurrentPage(targetPage) // Cập nhật trang hiện tại
+                setHighlightedId(Number(id))
                 navigate(`#page-${targetPage + 1}`)
 
-                // Đảm bảo rằng chúng ta đang ở đúng trang và đã render xong
-                setTimeout(() => {
-                    const ref = productRefs.current[productIndex]?.current
-                    if (ref) {
-                        ref.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        })
-                    }
-                }, 300)
+                // Chỉ cuộn đến sản phẩm trong trang hiện tại
+                if (targetPage === currentPage) {
+                    setTimeout(() => {
+                        const ref = productRefs.current[productIndex]?.current
+                        if (ref) {
+                            ref.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'nearest'
+                            })
+                        }
+                    }, 100)
+                }
             }
         }
-    }, [id, productData, itemsPerPage, navigate, isLoading])
+    }, [id, productData, itemsPerPage, navigate, isLoading, currentPage])
 
     const clearHighlight = () => {
         setHighlightedId(null)
@@ -75,6 +74,7 @@ const Products = () => {
 
     const handlePageClick = (data) => {
         setCurrentPage(data.selected)
+        navigate(`#page-${data.selected + 1}`)
     }
 
     const handleEdit = (product) => {
@@ -92,6 +92,7 @@ const Products = () => {
                 await getData()
             } catch (error) {
                 console.error('Error deleting product:', error)
+                alert('Không thể xóa sản phẩm. Vui lòng thử lại!')
             }
             setProductIdToDelete(null)
             setIsConfirmDeleteVisible(false)
@@ -169,9 +170,10 @@ const Products = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {currentProducts.map((product) => (
+                                {currentProducts.map((product, index) => (
                                     <tr
                                         key={product.id}
+                                        ref={productRefs.current[index]}
                                         style={{
                                             backgroundColor:
                                                 product.id === Number(highlightedId) ? '#e0f7fa' : 'transparent'
@@ -226,6 +228,7 @@ const Products = () => {
                     onPageChange={handlePageClick}
                     containerClassName={'flex space-x-2 pt-2'}
                     activeClassName={'font-bold text-blue-500'}
+                    forcePage={currentPage}
                 />
             </div>
             {isFormVisible && <FormProduct product={selectedProduct} onSave={handleSave} onClose={handleCloseForm} />}
@@ -239,5 +242,4 @@ const Products = () => {
         </div>
     )
 }
-
 export default Products

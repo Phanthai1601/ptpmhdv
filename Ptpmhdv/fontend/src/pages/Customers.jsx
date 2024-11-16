@@ -175,7 +175,8 @@ const Customers = () => {
                     onPageChange={handlePageClick}
                     containerClassName={'flex space-x-2 pt-2'}
                     subContainerClassName={'pages pagination'}
-                    activeClassName={'active'}
+                    activeClassName={'font-bold text-blue-500'}
+                    forcePage={currentPage}
                 />
             </div>
 
