@@ -21,8 +21,7 @@ const Login = ({ onLogin }) => {
     useEffect(() => {}, [])
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(formData)
-        onLogin() // Cập nhật trạng thái đăng nhập
+        onLogin()
         navigate('/admin')
     }
 
@@ -39,6 +38,7 @@ const Login = ({ onLogin }) => {
                     <button>
                         <img src={logo} alt="logo" className="w-20 h-20 inline-block" />
                     </button>
+                    <p className="font-semibold">Admin</p>
                 </div>
 
                 <form onSubmit={handleSubmit}>
@@ -53,6 +53,7 @@ const Login = ({ onLogin }) => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
+                                autocomplete="current-email"
                             />
                         </div>
                         <div>
@@ -65,6 +66,7 @@ const Login = ({ onLogin }) => {
                                 value={formData.password}
                                 onChange={handleChange}
                                 required
+                                autocomplete="current-password"
                             />
                         </div>
                         <div className="flex items-center">
@@ -90,16 +92,6 @@ const Login = ({ onLogin }) => {
                             Đăng nhập
                         </button>
                     </div>
-                    <p className="text-gray-800 text-sm mt-6 text-center">
-                        Bạn chưa có tài khoản?
-                        <button
-                            type="button"
-                            className="text-blue-600 font-semibold hover:underline ml-1"
-                            onClick={() => navigate('/register')}
-                        >
-                            Đăng kí tại đây
-                        </button>
-                    </p>
                 </form>
             </div>
         </div>
