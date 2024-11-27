@@ -17,8 +17,7 @@ const Sidebar = () => {
         setShowConfirm(true)
     }
     const handleConfirmLogout = () => {
-        // Thực hiện đăng xuất ở đây, ví dụ như xóa token và chuyển hướng
-        // Xử lý đăng xuất
+        localStorage.removeItem('token')
         navigate('/')
     }
 
