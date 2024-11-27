@@ -1,33 +1,49 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import logo from '../assets/icons/user-svgrepo-com.svg'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const Login = ({ onLogin }) => {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-        errMessage: ''
-    })
+    const [formData, setFormData] = useState({ email: '', password: '' })
+    const [errMessage, setErrMessage] = useState('')
     const navigate = useNavigate()
 
+    const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+
     const handleChange = (e) => {
-        const { name, value, type, checked } = e.target
+        const { name, value } = e.target
         setFormData({
             ...formData,
-            [name]: type === 'checkbox' ? checked : value
+            [name]: value
         })
     }
 
-    useEffect(() => {}, [])
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        onLogin()
-        navigate('/admin')
+        if (!isValidEmail(formData.email)) {
+            setErrMessage('Email không hợp lệ!')
+            return
+        }
+
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/login`, {
+                email: formData.email,
+                password: formData.password,
+
+                role: 'Admin'
+            })
+            const token = response.data.token
+            localStorage.setItem('token', token)
+            onLogin()
+            navigate('/admin')
+        } catch (error) {
+            setErrMessage(error.response?.data?.message || 'Đăng nhập thất bại!')
+        }
     }
 
     return (
         <div
-            className="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4 "
+            className="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4"
             style={{
                 background: 'linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%)',
                 height: '100vh'
@@ -47,13 +63,13 @@ const Login = ({ onLogin }) => {
                             <span className="text-gray-800 text-sm mb-2 block">Email</span>
                             <input
                                 name="email"
-                                type="text"
+                                type="email"
                                 className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
                                 placeholder="Nhập email"
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-                                autocomplete="current-email"
+                                autoComplete="email"
                             />
                         </div>
                         <div>
@@ -66,18 +82,10 @@ const Login = ({ onLogin }) => {
                                 value={formData.password}
                                 onChange={handleChange}
                                 required
-                                autocomplete="current-password"
+                                autoComplete="password"
                             />
                         </div>
-                        <div className="flex items-center">
-                            <span
-                                className={
-                                    formData.errMessage.length > 0 ? ' text-red-500 text-orange-500 text-sm' : ''
-                                }
-                            >
-                                {formData.errMessage}
-                            </span>
-                        </div>
+                        {errMessage && <div className="text-red-500 text-sm">{errMessage}</div>}
                     </div>
 
                     <div className="!mt-6">

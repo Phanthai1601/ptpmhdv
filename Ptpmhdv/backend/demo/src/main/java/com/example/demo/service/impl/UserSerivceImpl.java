@@ -14,6 +14,10 @@ public class UserSerivceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
     @Override
     public List<User> getAllUsers() {

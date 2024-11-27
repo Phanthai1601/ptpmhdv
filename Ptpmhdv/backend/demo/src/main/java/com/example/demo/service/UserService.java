@@ -14,4 +14,5 @@ public interface UserService {
     Integer sumUsers();
     Integer getUserMale();
     Integer getUserFemale();
+    User getUserByEmail(String email);
 }

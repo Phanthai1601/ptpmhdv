@@ -10,7 +10,10 @@ import useHideUnimportantErrors from './library/utils/useHideUnimportantErrors'
 
 const App = () => {
     // Trạng thái đăng nhập
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [isAuthenticated, setIsAuthenticated] = useState(() => {
+        // Kiểm tra localStorage để xác định trạng thái đăng nhập
+        return localStorage.getItem('token') !== null
+    })
 
     // Route bảo vệ
     const ProtectedRoute = ({ children }) => {
@@ -23,7 +26,18 @@ const App = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<Navigate to="/login" replace />} />
-                <Route path="/login" element={<Login onLogin={() => setIsAuthenticated(true)} />} />
+                <Route
+                    path="/login"
+                    element={
+                        <Login
+                            onLogin={() => {
+                                setIsAuthenticated(true)
+                                // Lưu trạng thái đăng nhập vào localStorage
+                                localStorage.setItem('token', 'your_token_here') // Thay thế bằng token thực tế
+                            }}
+                        />
+                    }
+                />
                 {/* Admin */}
                 <Route
                     path="/admin"

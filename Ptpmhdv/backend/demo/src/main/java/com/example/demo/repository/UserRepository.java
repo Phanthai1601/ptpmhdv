@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT COUNT(u) FROM User u")
     long countTotalUsers();
+    @Query("SELECT u FROM User u WHERE u.email = ?1")
+    User findByEmail(String email);
 
     @Query("SELECT COUNT(u) FROM User u WHERE u.gender = 'Male'")
     long countMaleUsers();
