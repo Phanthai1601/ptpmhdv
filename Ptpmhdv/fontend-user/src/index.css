@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css?family=Inter:wght@308;408;580;688;708&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        font-family: 'Inter', sans-serif;
+        line-height: 1.3;
+    }
+    body {
+        background-image: url('/public/bg-dt.png'); /* Thay bằng đường dẫn ảnh */
+        background-size: cover; /* Ảnh bao phủ toàn bộ màn hình */
+        background-repeat: no-repeat; /* Không lặp lại ảnh */
+        background-attachment: fixed; /* Ảnh cố định khi cuộn */
+        background-position: center; /* Ảnh căn giữa */
+    }
+    table {
+        /* Custom styles cho table nếu cần */
+    }
+
+    th,
+    td {
+        @apply py-3 px-2.5 text-sm text-left border-y border-gray-200;
+    }
+
+    thead {
+        /* Custom styles cho thead nếu cần */
+    }
+
+    th {
+        @apply bg-neutral-100 font-semibold;
+    }
+
+    a {
+        @apply text-sky-500 hover:underline;
+    }
+}
