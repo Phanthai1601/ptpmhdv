@@ -1,14 +1,18 @@
 package com.example.demo.service.impl;
 
 
+import com.example.demo.dto.ProductDTO;
 import com.example.demo.model.Product;
 import com.example.demo.repository.LaptopRepository;
 import com.example.demo.service.LaptopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class LaptopServiceImpl implements LaptopService {
@@ -67,6 +71,31 @@ public class LaptopServiceImpl implements LaptopService {
     @Override
     public List<Product> findLaptop(String keyword) {
         return laptopRepository.findByNameContainingIgnoreCase(keyword);
+    }
+
+    @Override
+    public Page<ProductDTO> getProductsWithPagination(int page, int size) {
+        Page<Product> products = laptopRepository.findAll(PageRequest.of(page, size));
+        return products.map(this::convertToDTO);
+    }
+
+    private  ProductDTO convertToDTO(Product product) {
+        return new ProductDTO(
+                product.getId(),
+                product.getName(),
+                product.getImage(),
+                product.getRam(),
+                product.getSsd(),
+                product.getSale_price(),
+                product.getOld_price(),
+                product.getDiscount_percentage(),
+                product.getGift(),
+                product.getScreen(),
+                product.getCpu(),
+                product.getGraphics_card(),
+                product.getBattery(),
+                product.getWeight()
+        );
     }
 
 
