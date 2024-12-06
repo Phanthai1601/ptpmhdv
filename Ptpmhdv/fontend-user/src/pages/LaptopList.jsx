@@ -33,17 +33,19 @@ const LaptopList = () => {
     }
 
     if (loading) {
-        return <div className="text-center text-lg mt-1">Đang tải dữ liệu...</div>
+        return <div className="text-center text-lg h-5 mt-5">Đang tải dữ liệu...</div>
     }
 
     if (error) {
-        return <div className="text-center text-red-500 mt-1">{error}</div>
+        return <div className="text-center text-red-500 mt-10">{error}</div>
     }
 
     return (
-        <div className="p-6 font-sans">
-            <h1 className="text-2xl font-bold text-center mb-6">Danh sách sản phẩm Laptop</h1>
+        <div className="p-6 font-sans mt-10">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 m-4 py-4 px-4 bg-white rounded-lg pt-6">
+                <div className="col-span-full text-center mb-6 w-full h-5">
+                    <h1 className="text-2xl font-bold text-center mb-6">Danh sách sản phẩm Laptop</h1>
+                </div>
                 {currentProducts.map((laptop) => (
                     <div
                         key={laptop.id}
@@ -58,20 +60,23 @@ const LaptopList = () => {
                         <Link
                             to={`/product/${laptop.id}`}
                             state={laptop}
-                            className="block text-gray-700 hover:text-sky-500"
+                            className="block text-gray-700 hover:text-sky-500 !no-underline"
                         >
                             <h2 className="text-sm font-sans-serif mb-1 h-10 overflow-hidden">{laptop.name}</h2>
                             <h2 className="text-sm font-sans-serif mb-1">
                                 {laptop.ram}/{laptop.ssd}
                             </h2>
                         </Link>
-                        <p className="text-red-500 font-bold text-base">{laptop.old_price}</p>
+                        <p className="text-red-500 font-bold text-base">{laptop.sale_price}</p>
                         <div>
                             <span className="font-sans-serif text-gray-500 line-through text-sm">
-                                {laptop.old_price}
+                                {laptop.old_price === 'Không có thông tin' ? laptop.sale_price : laptop.old_price}
                             </span>
                             <span className="text-red-500 font-sans-serif text-sm">
-                                &nbsp;&nbsp;{laptop.discount_percentage}
+                                &nbsp;&nbsp;
+                                {laptop.discount_percentage === 'Không có thông tin'
+                                    ? '-0%'
+                                    : laptop.discount_percentage}
                             </span>
                         </div>
                     </div>

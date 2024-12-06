@@ -3,21 +3,32 @@ import { Link } from 'react-router-dom'
 
 function Header() {
     return (
-        <div className="flex justify-between items-center p-4 bg-yellow-300 text-white">
-            <div className="text-2xl font-bold">
-                <Link to="/" className="text-white hover:text-gray-200">
-                    Laptop
-                </Link>
+        <header className="fixed top-0 left-0 w-full bg-gradient-to-r from-yellow-400 to-yellow-600 shadow-md z-50">
+            <div className="max-w-screen-xl mx-auto flex justify-between items-center p-4">
+                {/* Logo and Title */}
+                <div className="text-3xl font-semibold text-white">
+                    <Link to="/" className="hover:text-gray-200 transition duration-300 !no-underline">
+                        Laptop Store
+                    </Link>
+                </div>
+
+                {/* Navigation Links */}
+                <nav className="space-x-6">
+                    <Link
+                        to="/login"
+                        className="py-2 px-5 bg-white text-blue-600 rounded-lg hover:bg-blue-200 transition duration-300 !no-underline"
+                    >
+                        Đăng nhập
+                    </Link>
+                    <Link
+                        to="/register"
+                        className="py-2 px-5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300 !no-underline"
+                    >
+                        Đăng ký
+                    </Link>
+                </nav>
             </div>
-            <div className="space-x-4">
-                <Link to="/login" className="py-2 px-4 bg-white text-blue-600 rounded hover:bg-gray-200">
-                    Đăng nhập
-                </Link>
-                <Link to="/register" className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700">
-                    Đăng ký
-                </Link>
-            </div>
-        </div>
+        </header>
     )
 }
 
