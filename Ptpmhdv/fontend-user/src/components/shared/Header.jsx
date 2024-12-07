@@ -8,9 +8,10 @@ function Header() {
                 {/* Logo and Title */}
                 <div className="text-3xl font-semibold text-white">
                     <Link to="/" className="hover:text-gray-200 transition duration-300 !no-underline">
-                        Laptop Store
+                        <img width='250px' src="https://cdnv2.tgdd.vn/webmwg/2024/ContentMwg/images/noel/2024/tgdd/logo-dt.png" alt="" />
                     </Link>
                 </div>
+                
 
                 {/* Navigation Links */}
                 <nav className="space-x-6">
