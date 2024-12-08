@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import logo from '../assets/icons/user-svgrepo-com.svg'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import { loginAdmin } from '../services/APIServices'
 
 const Login = ({ onLogin }) => {
     const [formData, setFormData] = useState({ email: '', password: '' })
@@ -20,24 +20,47 @@ const Login = ({ onLogin }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setErrMessage('')
         if (!isValidEmail(formData.email)) {
             setErrMessage('Email không hợp lệ!')
             return
         }
 
         try {
-            const response = await axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/login`, {
+            const response = await loginAdmin({
                 email: formData.email,
-                password: formData.password,
-
-                role: 'Admin'
+                password: formData.password
             })
-            const token = response.data.token
-            localStorage.setItem('token', token)
-            onLogin()
-            navigate('/admin')
+
+            if (response && response.data) {
+                const { email, fullName, role, token, message } = response.data
+
+                if (token) {
+                    localStorage.setItem('token', token)
+
+                    const user = {
+                        email: email,
+                        fullName: fullName,
+                        role: role
+                    }
+                    localStorage.setItem('user', JSON.stringify(user))
+
+                    onLogin()
+                    navigate('/admin')
+                } else {
+                    setErrMessage(message || 'Đăng nhập thất bại!')
+                }
+            } else {
+                setErrMessage('Đăng nhập thất bại!')
+            }
         } catch (error) {
-            setErrMessage(error.response?.data?.message || 'Đăng nhập thất bại!')
+            console.error('Error response:', error)
+
+            if (error.response) {
+                setErrMessage(error.response.data.message || 'Lỗi đăng nhập!')
+            } else {
+                setErrMessage('Đã xảy ra lỗi khi kết nối đến server!')
+            }
         }
     }
 

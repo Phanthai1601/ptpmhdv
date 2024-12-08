@@ -5,7 +5,6 @@ import ReactPaginate from 'react-paginate'
 import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa'
 import FormProduct from '../components/admin/FromProduct'
 import ConfirmDelete from '../components/admin/ConfirmDelete'
-import ImagePopup from '../components/shared/ImagePopup'
 
 const Products = () => {
     const { id } = useParams()
@@ -25,8 +24,10 @@ const Products = () => {
         try {
             setIsLoading(true)
             const data = await getProducts()
-            const sortData = data.sort((a, b) => a.id - b.id)
-            setProductData(sortData)
+            if (data && data.length > 0) {
+                const sortData = data.sort((a, b) => a.id - b.id)
+                setProductData(sortData)
+            }
         } catch (error) {
             console.error('Error fetching products:', error)
         } finally {
@@ -47,11 +48,10 @@ const Products = () => {
             const productIndex = productData.findIndex((product) => product.id === Number(id))
             if (productIndex !== -1) {
                 const targetPage = Math.floor(productIndex / itemsPerPage)
-                setCurrentPage(targetPage) // Cập nhật trang hiện tại
+                setCurrentPage(targetPage)
                 setHighlightedId(Number(id))
                 navigate(`#page-${targetPage + 1}`)
 
-                // Chỉ cuộn đến sản phẩm trong trang hiện tại
                 if (targetPage === currentPage) {
                     setTimeout(() => {
                         const ref = productRefs.current[productIndex]?.current
@@ -180,9 +180,9 @@ const Products = () => {
                                         }}
                                     >
                                         <td className="py-2 text-xs">{product.id}</td>
-                                        <td className="py-2 text-xs">{product.name}</td>
-                                        <td className="py-2 text-xs relative group">
-                                            <ImagePopup image={product.image} altText={product.name} />
+                                        <td className="py-2 text-xs">{product.name.replace(/\(.*?\)/g, '').trim()}</td>
+                                        <td className="py-2 text-xs">
+                                            <img src={product.image} alt={product.name} />
                                         </td>
                                         <td className="py-2 text-xs">{product.ram}</td>
                                         <td className="py-2 text-xs">{product.ssd}</td>

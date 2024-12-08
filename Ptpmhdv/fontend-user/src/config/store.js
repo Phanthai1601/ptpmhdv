@@ -3,7 +3,6 @@ import { thunk } from 'redux-thunk'
 
 // Reducer quản lý danh sách laptop
 const laptopReducer = (state = { laptops: [], loading: true, error: '', currentPage: 1 }, action) => {
-    console.log('Reducer Action:', action) // Xem action được nhận trong reducer
     switch (action.type) {
         case 'FETCH_LAPTOPS_REQUEST':
             return { ...state, loading: true }

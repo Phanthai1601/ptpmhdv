@@ -9,8 +9,10 @@ const PopularProducts = () => {
         const getData = async () => {
             try {
                 const data = await getAllPopularProducts()
-                const sortData = data.sort((a, b) => a.id - b.id)
-                setPopularProducts(sortData)
+                if (data && data.length > 0) {
+                    const sortData = data.sort((a, b) => a.id - b.id)
+                    setPopularProducts(sortData)
+                }
             } catch (error) {
                 console.error('Error fetching popular products:', error)
             }

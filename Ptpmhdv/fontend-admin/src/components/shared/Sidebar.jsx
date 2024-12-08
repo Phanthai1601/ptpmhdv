@@ -18,6 +18,7 @@ const Sidebar = () => {
     }
     const handleConfirmLogout = () => {
         localStorage.removeItem('token')
+        localStorage.removeItem('user')
         navigate('/')
     }
 

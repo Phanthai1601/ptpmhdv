@@ -10,8 +10,10 @@ const RecentOrders = () => {
         const getData = async () => {
             try {
                 const data = await getProductOrders()
-                const softData = data.sort((a, b) => a.id - b.id)
-                setProductOrders(softData)
+                if (data && data.length > 0) {
+                    const softData = data.sort((a, b) => a.id - b.id)
+                    setProductOrders(softData)
+                }
             } catch (error) {
                 console.error('Error fetching product data:', error)
             }

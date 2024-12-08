@@ -25,7 +25,7 @@ const SearchProduct = () => {
     }
 
     return (
-        <div className="relative">
+        <div className="relative ml-3.5">
             <HiOutlineSearch fontSize={20} className="text-gray-400 absolute top-1/2 -translate-y-1/2 left-3" />
             <input
                 type="text"

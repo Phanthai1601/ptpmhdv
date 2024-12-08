@@ -183,3 +183,12 @@ export const searchProduct = async (query) => {
         console.error('Error search laptops:', error)
     }
 }
+
+export const loginAdmin = async (account) => {
+    try {
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_API}/auth/login`, account)
+        return response
+    } catch (error) {
+        console.error('Error login Admin:', error)
+    }
+}

@@ -16,7 +16,6 @@ const LaptopList = () => {
         }
     }, [dispatch, laptops.length])
 
-
     const totalPages = Math.ceil(laptops.length / productsPerPage)
     const startIndex = (currentPage - 1) * productsPerPage
     const currentProducts = laptops.slice(startIndex, startIndex + productsPerPage)
@@ -42,66 +41,120 @@ const LaptopList = () => {
     }
 
     return (
-        <div className="p-6 font-sans" style={{ marginTop: '100px' }}>
-            <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+        <div className="p-6 font-sans mb-4" style={{ marginTop: '70px' }}>
+            <div
+                id="carouselExampleIndicators"
+                className="carousel slide"
+                data-bs-ride="carousel"
+                data-bs-interval="2000"
+            >
                 <div className="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button
+                        type="button"
+                        data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide-to="0"
+                        className="active"
+                        aria-current="true"
+                        aria-label="Slide 1"
+                    ></button>
+                    <button
+                        type="button"
+                        data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide-to="1"
+                        aria-label="Slide 2"
+                    ></button>
+                    <button
+                        type="button"
+                        data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide-to="2"
+                        aria-label="Slide 3"
+                    ></button>
                 </div>
                 <div className="carousel-inner">
                     <div className="carousel-item active">
                         <div className="row m-5">
                             <div className="col-6">
-                                <img src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/76/fb/76fbc67548f64e5857bc526b2649f8a9.png" className="d-block w-100" alt="..." />
+                                <img
+                                    src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/76/fb/76fbc67548f64e5857bc526b2649f8a9.png"
+                                    className="d-block w-100"
+                                    alt="..."
+                                />
                             </div>
                             <div className="col-6">
-                                <img src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/c8/3a/c83a18563c1751564790a036e9755a6f.png" className="d-block w-100" alt="..." />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="carousel-item">
-                        <div className="row m-5">
-                            <div className="col-6">
-                                <img src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/39/5a/395a8c292aa5163c665d9052d6b87f6c.png" className="d-block w-100" alt="..." />
-                            </div>
-                            <div className="col-6">
-                                <img src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/5e/59/5e59a729438eb1e72ad4ef2b4e2cdd29.png" className="d-block w-100" alt="..." />
+                                <img
+                                    src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/c8/3a/c83a18563c1751564790a036e9755a6f.png"
+                                    className="d-block w-100"
+                                    alt="..."
+                                />
                             </div>
                         </div>
                     </div>
                     <div className="carousel-item">
                         <div className="row m-5">
                             <div className="col-6">
-                                <img src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/76/fb/76fbc67548f64e5857bc526b2649f8a9.png" className="d-block w-100" alt="..." />
+                                <img
+                                    src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/39/5a/395a8c292aa5163c665d9052d6b87f6c.png"
+                                    className="d-block w-100"
+                                    alt="..."
+                                />
                             </div>
                             <div className="col-6">
-                                <img src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/c8/3a/c83a18563c1751564790a036e9755a6f.png" className="d-block w-100" alt="..." />
+                                <img
+                                    src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/5e/59/5e59a729438eb1e72ad4ef2b4e2cdd29.png"
+                                    className="d-block w-100"
+                                    alt="..."
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="carousel-item">
+                        <div className="row m-5">
+                            <div className="col-6">
+                                <img
+                                    src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/76/fb/76fbc67548f64e5857bc526b2649f8a9.png"
+                                    className="d-block w-100"
+                                    alt="..."
+                                />
+                            </div>
+                            <div className="col-6">
+                                <img
+                                    src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/c8/3a/c83a18563c1751564790a036e9755a6f.png"
+                                    className="d-block w-100"
+                                    alt="..."
+                                />
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <button
+                    className="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev"
+                >
                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span className="visually-hidden">Previous</span>
                 </button>
-                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <button
+                    className="carousel-control-next"
+                    type="button"
+                    data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next"
+                >
                     <span className="carousel-control-next-icon" aria-hidden="true"></span>
                     <span className="visually-hidden">Next</span>
                 </button>
             </div>
 
-
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 m-5 py-4 px-4 bg-white rounded-lg pt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 m-4 mt-2 py-4 px-4 bg-white rounded-lg pt-6">
                 <div className="col-span-full text-center mb-6 w-full h-5">
                     <h1 className="text-2xl font-bold text-center mb-6">Danh sách sản phẩm Laptop</h1>
                 </div>
                 {currentProducts.map((laptop) => (
                     <div
                         key={laptop.id}
-                        className="border border-gray-200 rounded-lg p-4 text-left bg-white"
+                        className="border border-gray-200 rounded-lg p-3 text-left bg-white"
                         style={{ height: '250px' }}
                     >
                         <img
@@ -148,10 +201,11 @@ const LaptopList = () => {
                     <button
                         key={i + 1}
                         onClick={() => handlePageClick(i + 1)}
-                        className={`px-4 py-2 rounded ${currentPage === i + 1
-                            ? 'bg-blue-500 text-white'
-                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                            }`}
+                        className={`px-4 py-2 rounded ${
+                            currentPage === i + 1
+                                ? 'bg-blue-500 text-white'
+                                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                        }`}
                     >
                         {i + 1}
                     </button>

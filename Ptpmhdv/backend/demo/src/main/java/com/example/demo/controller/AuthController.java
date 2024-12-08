@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.User; // Sử dụng lớp User
+import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import com.example.demo.config.JwtUtil;
+import com.example.demo.dto.AdminLoginResponse;
+import com.example.demo.dto.MessageErrorLogin;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -22,24 +24,35 @@ public class AuthController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @Operation(summary = "Login user and return JWT token")
+    @Operation(summary = "Login user and return JWT token and user details")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully logged in and token returned"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized - Invalid credentials")
+            @ApiResponse(responseCode = "200", description = "Request processed successfully")
     })
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User user) {
+    public ResponseEntity<?> login(@RequestBody User user) {
         // Kiểm tra thông tin người dùng
-        User existingUser   = userService.getUserByEmail(user.getEmail());
+        User existingUser = userService.getUserByEmail(user.getEmail());
 
-        // Kiểm tra role và mật khẩu
-        if (existingUser   != null && existingUser .getPassword().equals(user.getPassword())
-                && "Admin".equalsIgnoreCase(existingUser .getRole())) {
-            String token = jwtUtil.generateToken(existingUser .getEmail());
-            return ResponseEntity.ok(token);
+        // Kiểm tra nếu người dùng không tồn tại
+        if (existingUser == null) {
+            return ResponseEntity.ok(new MessageErrorLogin("Email không tồn tại!"));
         }
 
-        // Trả về lỗi Unauthorized nếu thông tin không hợp lệ
-        return ResponseEntity.status(401).body("Unauthorized");
+        // Kiểm tra quyền (role) người dùng
+        if (!"Admin".equalsIgnoreCase(existingUser.getRole())) {
+            return ResponseEntity.ok(new MessageErrorLogin("Tài khoản này không có quyền quản trị!"));
+        }
+    
+        // Kiểm tra mật khẩu không đúng
+        if (!existingUser.getPassword().equals(user.getPassword())) {
+            return ResponseEntity.ok(new MessageErrorLogin("Mật khẩu không đúng!"));
+        }
+
+        // Tạo token và lấy các thông tin người dùng
+        String token = jwtUtil.generateToken(existingUser.getEmail());
+
+        // Trả về đối tượng AdminLoginResponse chứa thông tin người dùng và token
+        AdminLoginResponse adminLoginResponse = new AdminLoginResponse(existingUser, token);
+        return ResponseEntity.ok(adminLoginResponse);
     }
 }

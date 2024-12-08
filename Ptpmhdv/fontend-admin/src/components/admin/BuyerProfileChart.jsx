@@ -29,6 +29,10 @@ const BuyerProfilePieChart = () => {
                 ])
             } catch (error) {
                 console.error('Error fetching customer data:', error)
+                setData([
+                    { name: 'Nam', value: 0 },
+                    { name: 'Nữ', value: 0 }
+                ])
             }
         }
 
@@ -42,7 +46,7 @@ const BuyerProfilePieChart = () => {
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                         <Pie
-                            data={data}
+                            data={data && data.length > 0 ? data : []}
                             cx="50%"
                             cy="50%"
                             labelLine={false}
@@ -51,9 +55,13 @@ const BuyerProfilePieChart = () => {
                             fill="#8884d8"
                             dataKey="value"
                         >
-                            {data.map((_, index) => (
-                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                            ))}
+                            {data && data.length > 0 ? (
+                                data.map((_, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                ))
+                            ) : (
+                                <Cell fill="#ccc" />
+                            )}
                         </Pie>
                         <Legend />
                     </PieChart>
