@@ -42,7 +42,7 @@ public class AuthController {
         if (!"Admin".equalsIgnoreCase(existingUser.getRole())) {
             return ResponseEntity.ok(new MessageErrorLogin("Tài khoản này không có quyền quản trị!"));
         }
-    
+
         // Kiểm tra mật khẩu không đúng
         if (!existingUser.getPassword().equals(user.getPassword())) {
             return ResponseEntity.ok(new MessageErrorLogin("Mật khẩu không đúng!"));

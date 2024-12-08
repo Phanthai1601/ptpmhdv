@@ -8,12 +8,14 @@ public class AdminLoginResponse {
     private String fullName;
     private String role;
     private String token;
+    private String gender;
 
     public AdminLoginResponse(User user, String token) {
         this.email = user.getEmail();
-        this.fullName = user.getFullName();  // Đảm bảo có trường fullName trong User
+        this.fullName = user.getFullName();
         this.role = user.getRole();
         this.token = token;
+        this.gender = user.getGender();
     }
 
     // Getter và Setter
@@ -47,5 +49,13 @@ public class AdminLoginResponse {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

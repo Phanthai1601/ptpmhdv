@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { HiOutlineLogout, HiOutlineMenu } from 'react-icons/hi'
 import { Menu, Transition } from '@headlessui/react'
 import classNames from 'classnames'
-import logoAdmin from '../../assets/icons/hacker.png'
 import SearchProduct from '../admin/SearchProduct'
 import { useLocation, useNavigate } from 'react-router-dom'
 import ConfirmLogOut from '../admin/ConfirmDelete'
@@ -13,12 +12,15 @@ const Header = ({ toggleSidebar, setToggleSidebar }) => {
     const navigate = useNavigate()
     const [showConfirm, setShowConfirm] = useState(false)
     const [nameAdmin, setNameAdmin] = useState('')
+    const [avatar, setAvatar] = useState('')
 
     useEffect(() => {
         const user = localStorage.getItem('user')
         if (user) {
             const parsedUser = JSON.parse(user)
             setNameAdmin(parsedUser.fullName)
+            const avatar = parsedUser.avatar
+            setAvatar(avatar)
         }
     }, [])
 
@@ -58,7 +60,7 @@ const Header = ({ toggleSidebar, setToggleSidebar }) => {
                         <Menu.Button className="ml-1 inline-flex rounded-full focus:outline-none focus:ring-2 focus:ring-neutral-400">
                             <span className="sr-only">Open user menu</span>
                             <div
-                                style={{ backgroundImage: `url(${logoAdmin})` }}
+                                style={{ backgroundImage: `url(${avatar})` }}
                                 className="h-9 w-9 rounded-full bg-sky-500 bg-cover bg-no-repeat bg-center"
                             >
                                 <span className="sr-only">Vucoder</span>
@@ -83,7 +85,7 @@ const Header = ({ toggleSidebar, setToggleSidebar }) => {
                                         role="button"
                                         className={classNames(
                                             active ? 'bg-gray-100' : '',
-                                            'flex items-center gap-1 text-gray-700 focus:bg-gray-200 cursor-pointer rounded-sm px-4 py-2'
+                                            'flex items-center gap-1 text-red-900 focus:bg-gray-200 cursor-pointer rounded-sm px-4 py-2'
                                         )}
                                         onClick={handleLogout}
                                     >

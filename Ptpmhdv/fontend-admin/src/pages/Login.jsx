@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from '../assets/icons/user-svgrepo-com.svg'
 import { useNavigate } from 'react-router-dom'
 import { loginAdmin } from '../services/APIServices'
@@ -7,6 +7,13 @@ const Login = ({ onLogin }) => {
     const [formData, setFormData] = useState({ email: '', password: '' })
     const [errMessage, setErrMessage] = useState('')
     const navigate = useNavigate()
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if (token) {
+            navigate('/admin')
+        }
+    }, [navigate])
 
     const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 
@@ -33,15 +40,38 @@ const Login = ({ onLogin }) => {
             })
 
             if (response && response.data) {
-                const { email, fullName, role, token, message } = response.data
+                const { email, gender, fullName, role, token, message } = response.data
 
                 if (token) {
                     localStorage.setItem('token', token)
 
+                    const avatars = {
+                        Male: [
+                            require('../assets/icons/avatar/male/avt_male1.png'),
+                            require('../assets/icons/avatar/male/avt_male2.png'),
+                            require('../assets/icons/avatar/male/avt_male3.png'),
+                            require('../assets/icons/avatar/male/avt_male4.png'),
+                            require('../assets/icons/avatar/male/avt_male5.png')
+                        ],
+                        Female: [
+                            require('../assets/icons/avatar/female/avt_female1.png'),
+                            require('../assets/icons/avatar/female/avt_female2.png'),
+                            require('../assets/icons/avatar/female/avt_female3.png'),
+                            require('../assets/icons/avatar/female/avt_female4.png'),
+                            require('../assets/icons/avatar/female/avt_female5.png')
+                        ]
+                    }
+
+                    const randomAvatar = avatars[gender]
+                        ? avatars[gender][Math.floor(Math.random() * avatars[gender].length)]
+                        : require('../assets/icons/hacker.png')
+
                     const user = {
                         email: email,
                         fullName: fullName,
-                        role: role
+                        role: role,
+                        gender: gender,
+                        avatar: randomAvatar
                     }
                     localStorage.setItem('user', JSON.stringify(user))
 
