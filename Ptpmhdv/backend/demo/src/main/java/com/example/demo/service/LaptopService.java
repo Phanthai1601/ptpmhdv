@@ -17,5 +17,7 @@ public interface LaptopService {
     Product updateLaptop(String id, Product laptopDetails);
     List<Product> findLaptop(String keyword);
     Page<ProductDTO> getProductsWithPagination(int page, int size);
+    Product getProductById(Long id);
+
 
 }

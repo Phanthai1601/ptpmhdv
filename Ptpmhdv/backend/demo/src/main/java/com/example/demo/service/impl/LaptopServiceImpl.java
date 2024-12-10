@@ -79,6 +79,13 @@ public class LaptopServiceImpl implements LaptopService {
         return products.map(this::convertToDTO);
     }
 
+    @Override
+    public Product getProductById(Long id) {
+        return laptopRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+    }
+
+
     private  ProductDTO convertToDTO(Product product) {
         return new ProductDTO(
                 product.getId(),
