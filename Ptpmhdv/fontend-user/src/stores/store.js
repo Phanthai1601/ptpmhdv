@@ -17,9 +17,27 @@ const laptopReducer = (state = { laptops: [], loading: true, error: '', currentP
     }
 }
 
-// Kết hợp các reducers (nếu có nhiều reducers trong ứng dụng)
+const compareListReducer = (state = [], action) => {
+    switch (action.type) {
+        case 'ADD_TO_COMPARE':
+            // Kiểm tra nếu sản phẩm đã có hoặc danh sách đạt giới hạn 2
+            if (state.length >= 2 || state.some((item) => item.id === action.payload.id)) {
+                return state
+            }
+            return [...state, action.payload] // Thêm sản phẩm mới nếu chưa có và danh sách chưa đầy đủ
+        case 'REMOVE_FROM_COMPARE':
+            return state.filter((item) => item.id !== action.payload) // Sử dụng `id` để xóa
+        case 'CLEAR_COMPARE_LIST':
+            return [] // Xóa toàn bộ danh sách
+        default:
+            return state
+    }
+}
+
+// Kết hợp các reducers
 const rootReducer = combineReducers({
-    laptopData: laptopReducer
+    laptopData: laptopReducer,
+    compareList: compareListReducer
 })
 
 // Tạo store với rootReducer và middleware thunk

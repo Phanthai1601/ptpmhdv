@@ -1,8 +1,8 @@
-// LaptopList.js
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchLaptops } from '../actions/laptopActions'
+import { fetchLaptops, addToCompare } from '../actions/laptopActions'
 import { Link } from 'react-router-dom'
+import { CgAdd } from 'react-icons/cg'
 
 const LaptopList = () => {
     const dispatch = useDispatch()
@@ -26,6 +26,11 @@ const LaptopList = () => {
 
     const handleNext = () => {
         if (currentPage < totalPages) dispatch({ type: 'SET_CURRENT_PAGE', payload: currentPage + 1 })
+    }
+
+    // Dispatch action to add laptop to compare list
+    const handleAddToCompare = (laptop) => {
+        dispatch(addToCompare(laptop))
     }
 
     const handlePageClick = (page) => {
@@ -154,8 +159,8 @@ const LaptopList = () => {
                 {currentProducts.map((laptop) => (
                     <div
                         key={laptop.id}
-                        className="border border-gray-200 rounded-lg p-3 text-left bg-white"
-                        style={{ height: '250px' }}
+                        className="border border-gray-200 rounded p-3 text-left bg-white"
+                        style={{ height: '270px' }}
                     >
                         <img
                             src={laptop.image}
@@ -184,11 +189,17 @@ const LaptopList = () => {
                                     : laptop.discount_percentage}
                             </span>
                         </div>
+                        <div className="cursor-pointer mt-1" onClick={() => handleAddToCompare(laptop)}>
+                            <span className="flex text-sky-500 font-sans-serif text-sm items-center justify-left">
+                                <CgAdd />
+                                &nbsp;So sánh
+                            </span>
+                        </div>
                     </div>
                 ))}
             </div>
 
-            {/* Phân trang */}
+            {/* Pagination */}
             <div className="flex justify-center items-center space-x-2">
                 <button
                     onClick={handlePrevious}

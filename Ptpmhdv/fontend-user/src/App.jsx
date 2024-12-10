@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Register from './pages/Register'
 import Layout from './components/shared/Layout'
 import ProductDetail from './pages/ProductDetails'
+import CompareProduct from './pages/CompareProduct'
 
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -20,9 +21,6 @@ const App = () => {
         return isAuthenticated ? children : <Navigate to="/login" replace />
     }
 
-    
-    
-
     return (
         <Router>
             <Routes>
@@ -35,6 +33,9 @@ const App = () => {
                     <Route path="register" element={<Register />} />
                     {/* Trang chi tiết sản phẩm */}
                     <Route path="product/:id" element={<ProductDetail />} />
+
+                    {/* Trang so sánh */}
+                    <Route path="compare/:id1/:id2" element={<CompareProduct />} />
 
                     {/* Các trang cần đăng nhập */}
                     <Route

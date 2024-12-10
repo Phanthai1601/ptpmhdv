@@ -1,16 +1,16 @@
 import { useLocation } from 'react-router-dom'
 
 const ProductDetail = () => {
-    const location = useLocation() // Lấy thông tin state từ location
-    const laptop = location.state // Truy cập thông tin laptop từ state
+    const location = useLocation()
+    const laptop = location.state
 
     if (!laptop) {
         return <div className="text-center text-red-500">Không tìm thấy thông tin sản phẩm</div>
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 m-6 py-6 px-6 mt-12 h-95 bg-white rounded-lg shadow-lg">
-            <div className="lg:col-span-2 px-3 mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 m-6 py-6 px-6 mt-[10%] h-95 bg-white rounded-lg shadow-lg">
+            <div className="lg:col-span-2 px-3">
                 <h1 className="text-3xl font-semibold mb-4 text-gray-800">{laptop.name}</h1>
                 <img
                     src={laptop.image}
@@ -19,7 +19,7 @@ const ProductDetail = () => {
                 />
             </div>
 
-            <div className="lg:col-span-4 mt-10">
+            <div className="lg:col-span-4">
                 <div className="space-y-4">
                     <p className="text-lg">
                         <strong>Màn hình:</strong> {laptop.screen}

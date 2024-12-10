@@ -115,7 +115,7 @@ const ChatbotPopup = () => {
             <div className="fixed bottom-4 right-4 z-50">
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="w-14 h-14 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 text-white flex items-center justify-center shadow-lg hover:scale-105 transition-all transform duration-300"
+                    className="w-14 h-14 rounded-full bg-gradient-to-r from-blue-800 to-blue-400 text-white flex items-center justify-center shadow-lg hover:scale-105 transition-all transform duration-300"
                 >
                     <img src={chat} alt="Chatbot" className="w-10 h-10" />
                 </button>
