@@ -8,15 +8,29 @@ public class LaptopComparisonResult {
     private String image;
     private ComparisonResult ram;
     private ComparisonResult ssd;
-    private ComparisonResult salePrice;
-    private ComparisonResult discountPercentage;
+    private ComparisonResult sale_price;
+    private ComparisonResult discount_percentage;
     private ComparisonResult gift;
     private ComparisonResult screen;
     private ComparisonResult cpu;
-    private ComparisonResult gpu;
+    private ComparisonResult graphics_card;
     private ComparisonResult battery;
     private ComparisonResult weight;
 
+    public LaptopComparisonResult(Long id, String name, String image, ComparisonResult ram, ComparisonResult ssd, ComparisonResult sale_price, ComparisonResult discount_percentage, ComparisonResult gift, ComparisonResult screen, ComparisonResult graphics_card, ComparisonResult battery, ComparisonResult weight) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.ram = ram;
+        this.ssd = ssd;
+        this.sale_price = sale_price;
+        this.discount_percentage = discount_percentage;
+        this.gift = gift;
+        this.screen = screen;
+        this.graphics_card = graphics_card;
+        this.battery = battery;
+        this.weight = weight;
+    }
 
     public Long getId() {
         return id;
@@ -58,26 +72,28 @@ public class LaptopComparisonResult {
         this.ssd = ssd;
     }
 
-
-    public LaptopComparisonResult(Long id, String name, String image, ComparisonResult ram, ComparisonResult ssd, ComparisonResult salePrice, ComparisonResult gpu, ComparisonResult discountPercentage, ComparisonResult gift,ComparisonResult screen, ComparisonResult battery, ComparisonResult weight) {
-        this.id = id;
-        this.name = name;
-        this.image = image;
-        this.ram = ram;
-        this.ssd = ssd;
-        this.battery = battery;
-        this.gift = gift;
-        this.screen = screen;
-        this.weight = weight;
-        this.gpu = gpu;
-        this.discountPercentage = discountPercentage;
-        this.salePrice = salePrice;
+    public ComparisonResult getSale_price() {
+        return sale_price;
     }
 
+    public void setSale_price(ComparisonResult sale_price) {
+        this.sale_price = sale_price;
+    }
 
+    public ComparisonResult getDiscount_percentage() {
+        return discount_percentage;
+    }
 
-    public ComparisonResult getDiscountPercentage() {
-        return discountPercentage;
+    public void setDiscount_percentage(ComparisonResult discount_percentage) {
+        this.discount_percentage = discount_percentage;
+    }
+
+    public ComparisonResult getGift() {
+        return gift;
+    }
+
+    public void setGift(ComparisonResult gift) {
+        this.gift = gift;
     }
 
     public ComparisonResult getScreen() {
@@ -88,16 +104,14 @@ public class LaptopComparisonResult {
         this.screen = screen;
     }
 
-    public void setDiscountPercentage(ComparisonResult discountPercentage) {
-        this.discountPercentage = discountPercentage;
+
+
+    public ComparisonResult getGraphics_card() {
+        return graphics_card;
     }
 
-    public ComparisonResult getGift() {
-        return gift;
-    }
-
-    public void setGift(ComparisonResult gift) {
-        this.gift = gift;
+    public void setGraphics_card(ComparisonResult graphics_card) {
+        this.graphics_card = graphics_card;
     }
 
     public ComparisonResult getBattery() {
@@ -114,21 +128,5 @@ public class LaptopComparisonResult {
 
     public void setWeight(ComparisonResult weight) {
         this.weight = weight;
-    }
-
-    public ComparisonResult getSalePrice() {
-        return salePrice;
-    }
-
-    public void setSalePrice(ComparisonResult salePrice) {
-        this.salePrice = salePrice;
-    }
-
-    public ComparisonResult getGpu() {
-        return gpu;
-    }
-
-    public void setGpu(ComparisonResult gpu) {
-        this.gpu = gpu;
     }
 }
