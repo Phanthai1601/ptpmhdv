@@ -36,7 +36,11 @@ public class LaptopComparisonController {
             screenLaptop2 = ComparisonResult.EQUAL;
         } else {
             screen = LaptopComparisonUtils.compare(LaptopComparisonUtils.extractScreen(laptop1.getScreen()), LaptopComparisonUtils.extractScreen(laptop2.getScreen()));
-            screenLaptop2 = (screen == ComparisonResult.TRUE) ? ComparisonResult.TRUE : ComparisonResult.FALSE;
+            if(screen == ComparisonResult.TRUE) {
+                screenLaptop2 = ComparisonResult.FALSE;
+            }else {
+                screenLaptop2 = ComparisonResult.TRUE;
+            }
         }
 
 
@@ -76,11 +80,14 @@ public class LaptopComparisonController {
 
         LaptopComparisonResult result1 = new LaptopComparisonResult(
                 laptop1.getId(), laptop1.getName(), laptop1.getImage(),
-                ramCompare, ssdCompare, sale,discountPercent, gift,screen,gpu,  battery, weight);
+                ramCompare, ssdCompare, sale,discountPercent,
+                gift,screen,gpu,  battery, weight);
 
         LaptopComparisonResult result2 = new LaptopComparisonResult(
                 laptop2.getId(), laptop2.getName(), laptop2.getImage(),
-                ramCompareLaptop2, ssdCompareLaptop2, saleLaptop2,  discountLaptop2, giftLaptop2,screenLaptop2,gpuLaptop2, batteryLaptop2, weightLaptop2);
+                ramCompareLaptop2, ssdCompareLaptop2, saleLaptop2,
+                discountLaptop2, giftLaptop2,screenLaptop2,gpuLaptop2,
+                batteryLaptop2, weightLaptop2);
 
         return ResponseEntity.ok(List.of(result1, result2));
     }
