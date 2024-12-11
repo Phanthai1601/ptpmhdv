@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import chat from '../../assets/icons/icons8-chat-bot-64.png'
+import chat from '../../assets/icons/Remove-bg.ai_1733943439497.png'
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css'
 import {
     MainContainer,
@@ -115,9 +115,9 @@ const ChatbotPopup = () => {
             <div className="fixed bottom-4 right-4 z-50">
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="w-12 h-12 rounded-full bg-gray-300 text-white flex items-center justify-center shadow-lg hover:bg-blue-600 transition"
+                    className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-all transform duration-300"
                 >
-                    <img src={chat} alt="Chatbot" className="w-10 h-10" />
+                    <img src={chat} alt="Chatbot" className="w-screen" />
                 </button>
             </div>
 
