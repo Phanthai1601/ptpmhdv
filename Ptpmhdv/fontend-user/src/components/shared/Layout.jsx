@@ -10,7 +10,7 @@ const Layout = () => {
             <Header />
 
             {/* Nội dung động */}
-            <main>
+            <main className="mt-[5.5rem]">
                 <Outlet />
             </main>
             <CompareLaptops />

@@ -5,17 +5,20 @@ import { useNavigate } from 'react-router-dom'
 
 const CompareLaptops = () => {
     const dispatch = useDispatch()
-    const compareList = useSelector((state) => state.compareList) || []
+    let compareList = [null, null]
+    compareList = useSelector((state) => state.compareList)
     const [isOpen, setIsOpen] = useState(true)
     const isDisableCompare = compareList.filter((item) => item !== null).length <= 1
     const navigate = useNavigate()
 
     const handleCompare = () => {
-        if (compareList.filter((item) => item !== null).length === 2) {
-            const productIds = compareList.filter((item) => item !== null).map((item) => item.id)
-            navigate(`/compare/${productIds[0]}/${productIds[1]}`)
+        const selectedProducts = compareList.filter((item) => item !== null)
+
+        if (selectedProducts.length === 2) {
+            navigate('/compare', { state: { products: selectedProducts } })
         }
     }
+
     const handleOpen = () => {
         setIsOpen(!isOpen)
     }
@@ -47,8 +50,7 @@ const CompareLaptops = () => {
 
             {!isOpen && (
                 <div className="fixed bottom-0 left-1/2 z-50 bg-white transform -translate-x-1/2 border shadow-xl w-[80%] h-[8.1rem] flex">
-                    {/* Nút thu gọn */}
-                    <div className="absolute bottom-[8rem] right-[0]">
+                    <div className="absolute bottom-[8rem] right-[-1.5px]">
                         <button
                             onClick={handleCollapse}
                             className="rounded-t-lg bg-white flex items-center justify-center shadow-lg hover:bg-gray-300 transition-all"
@@ -64,7 +66,7 @@ const CompareLaptops = () => {
                             key={index}
                             className="relative flex flex-col items-center justify-center w-1/3 border-r border-gray-400"
                         >
-                            {item ? (
+                            {item != null ? (
                                 <div className="text-center">
                                     <button
                                         onClick={() => handleRemoveProduct(item.id)}
@@ -88,18 +90,17 @@ const CompareLaptops = () => {
                         </div>
                     ))}
 
-                    {/* Nút hành động */}
-                    <div className="flex flex-col items-center justify-center w-1/3">
+                    <div className="fixed flex flex-col items-center justify-center w-1/3 right-0 bottom-[50%] transform translate-y-[50%]">
                         <button
                             onClick={handleCompare}
-                            className={`w-40 mb-2 px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 transition-all ${
+                            className={`w-[45%] mb-2 px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 transition-all ${
                                 isDisableCompare ? 'opacity-50 cursor-not-allowed' : ''
                             }`}
                             disabled={isDisableCompare}
                         >
                             So sánh
                         </button>
-                        <span onClick={handleClearAll} className="px-4 text-sky-700 cursor-pointer">
+                        <span onClick={handleClearAll} className="w-auto px-4 text-sky-700 cursor-pointer">
                             Xóa tất cả sản phẩm
                         </span>
                     </div>

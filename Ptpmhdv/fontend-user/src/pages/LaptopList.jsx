@@ -38,7 +38,7 @@ const LaptopList = () => {
     }
 
     if (loading) {
-        return <div className="text-center text-lg h-5 mt-5">Đang tải dữ liệu...</div>
+        return <div className="text-center text-lg py-4 pb-2 font-sans">Đang tải dữ liệu...</div>
     }
 
     if (error) {
@@ -46,7 +46,7 @@ const LaptopList = () => {
     }
 
     return (
-        <div className="p-6 font-sans mb-4" style={{ marginTop: '70px' }}>
+        <div className="p-6 font-sans mb-4" style={{ marginTop: '5.5rem' }}>
             <div
                 id="carouselExampleIndicators"
                 className="carousel slide"

@@ -6,11 +6,11 @@ import Register from './pages/Register'
 import Layout from './components/shared/Layout'
 import ProductDetail from './pages/ProductDetails'
 import CompareProduct from './pages/CompareProduct'
+import ScrollToTop from './components/shared/ScrollToTop'
 
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-    // Kiểm tra token từ localStorage khi ứng dụng được tải
     useEffect(() => {
         const token = localStorage.getItem('token')
         setIsAuthenticated(token !== null)
@@ -23,21 +23,16 @@ const App = () => {
 
     return (
         <Router>
+            <ScrollToTop />
             <Routes>
-                {/* Layout chung với header */}
                 <Route path="/" element={<Layout />}>
-                    {/* Trang chủ */}
                     <Route index element={<Home />} />
 
-                    {/* Trang đăng ký */}
                     <Route path="register" element={<Register />} />
-                    {/* Trang chi tiết sản phẩm */}
                     <Route path="product/:id" element={<ProductDetail />} />
 
-                    {/* Trang so sánh */}
-                    <Route path="compare/:id1/:id2" element={<CompareProduct />} />
+                    <Route path="compare" element={<CompareProduct />} />
 
-                    {/* Các trang cần đăng nhập */}
                     <Route
                         path="dashboard"
                         element={
@@ -48,7 +43,6 @@ const App = () => {
                     />
                 </Route>
 
-                {/* Trang đăng nhập */}
                 <Route
                     path="/login"
                     element={

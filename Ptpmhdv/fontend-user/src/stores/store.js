@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { thunk } from 'redux-thunk'
 
 // Reducer quản lý danh sách laptop
-const laptopReducer = (state = { laptops: [], loading: true, error: '', currentPage: 1 }, action) => {
+const laptopReducer = (state = { laptops: [], loading: true, error: '', currentPage: 1, laptopById: null }, action) => {
     switch (action.type) {
         case 'FETCH_LAPTOPS_REQUEST':
             return { ...state, loading: true }
