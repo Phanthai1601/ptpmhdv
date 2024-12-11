@@ -76,11 +76,11 @@ public class LaptopComparisonController {
 
         LaptopComparisonResult result1 = new LaptopComparisonResult(
                 laptop1.getId(), laptop1.getName(), laptop1.getImage(),
-                ramCompare, ssdCompare, sale, gpu, discountPercent, gift,screen, battery, weight);
+                ramCompare, ssdCompare, sale,discountPercent, gift,screen,gpu,  battery, weight);
 
         LaptopComparisonResult result2 = new LaptopComparisonResult(
                 laptop2.getId(), laptop2.getName(), laptop2.getImage(),
-                ramCompareLaptop2, ssdCompareLaptop2, saleLaptop2, gpuLaptop2, discountLaptop2, giftLaptop2,screenLaptop2, batteryLaptop2, weightLaptop2);
+                ramCompareLaptop2, ssdCompareLaptop2, saleLaptop2,  discountLaptop2, giftLaptop2,screenLaptop2,gpuLaptop2, batteryLaptop2, weightLaptop2);
 
         return ResponseEntity.ok(List.of(result1, result2));
     }
