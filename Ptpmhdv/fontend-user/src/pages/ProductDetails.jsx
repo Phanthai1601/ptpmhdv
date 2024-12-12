@@ -1,9 +1,16 @@
+import { CgAdd } from 'react-icons/cg'
+import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
+import { addToCompare } from '../actions/laptopActions'
 
 const ProductDetail = () => {
     const location = useLocation()
+    const dispatch = useDispatch()
     const laptop = location.state
 
+    const handleAddToCompare = () => {
+        dispatch(addToCompare(laptop))
+    }
     if (!laptop) {
         return <div className="text-center text-red-500">Không tìm thấy thông tin sản phẩm</div>
     }
@@ -21,9 +28,18 @@ const ProductDetail = () => {
 
             <div className="lg:col-span-4">
                 <div className="space-y-4">
-                    <p className="text-lg">
-                        <strong>Màn hình:</strong> {laptop.screen}
+                    <p className="text-lg flex items-center">
+                        <strong className="mr-2">Màn hình:</strong>
+                        <span>{laptop.screen}</span>
+                        <span
+                            className="cursor-pointer flex items-center justify-center text-sky-500 font-sans-serif ml-4"
+                            onClick={() => handleAddToCompare()}
+                        >
+                            <CgAdd className="mr-1 mt-[0.2rem]" />
+                            So sánh
+                        </span>
                     </p>
+
                     <p className="text-lg">
                         <strong>CPU:</strong> {laptop.cpu}
                     </p>

@@ -162,33 +162,34 @@ const LaptopList = () => {
                         className="border border-gray-200 rounded p-3 text-left bg-white"
                         style={{ height: '270px' }}
                     >
-                        <img
-                            src={laptop.image}
-                            alt={laptop.name}
-                            className="hover:scale-105 w-full h-24 object-contain rounded mb-2"
-                        />
                         <Link
                             to={`/product/${laptop.id}`}
                             state={laptop}
                             className="block text-gray-700 hover:text-sky-500 !no-underline"
                         >
+                            <img
+                                src={laptop.image}
+                                alt={laptop.name}
+                                className="hover:scale-105 w-full h-24 object-contain rounded mb-2"
+                            />
                             <h2 className="text-sm font-sans-serif mb-1 h-10 overflow-hidden">{laptop.name}</h2>
                             <h2 className="text-sm font-sans-serif mb-1">
                                 {laptop.ram}/{laptop.ssd}
                             </h2>
+                            <p className="text-red-500 font-bold text-base">{laptop.sale_price}</p>
+                            <div>
+                                <span className="font-sans-serif text-gray-500 line-through text-sm">
+                                    {laptop.old_price === 'Không có thông tin' ? laptop.sale_price : laptop.old_price}
+                                </span>
+                                <span className="text-red-500 font-sans-serif text-sm">
+                                    &nbsp;&nbsp;
+                                    {laptop.discount_percentage === 'Không có thông tin'
+                                        ? '-0%'
+                                        : laptop.discount_percentage}
+                                </span>
+                            </div>
                         </Link>
-                        <p className="text-red-500 font-bold text-base">{laptop.sale_price}</p>
-                        <div>
-                            <span className="font-sans-serif text-gray-500 line-through text-sm">
-                                {laptop.old_price === 'Không có thông tin' ? laptop.sale_price : laptop.old_price}
-                            </span>
-                            <span className="text-red-500 font-sans-serif text-sm">
-                                &nbsp;&nbsp;
-                                {laptop.discount_percentage === 'Không có thông tin'
-                                    ? '-0%'
-                                    : laptop.discount_percentage}
-                            </span>
-                        </div>
+
                         <div className="cursor-pointer mt-1" onClick={() => handleAddToCompare(laptop)}>
                             <span className="flex text-sky-500 font-sans-serif text-sm items-center justify-left">
                                 <CgAdd />

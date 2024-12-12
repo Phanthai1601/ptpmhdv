@@ -14,7 +14,7 @@ function Header() {
                 </div>
 
                 {/* Navigation Links */}
-                <nav className="w-[8%] flex flex-col space-y-1 w-full text-sm justify-center">
+                <nav className="w-[8%] flex flex-col space-y-1 text-sm justify-center">
                     <Link
                         to="/login"
                         className="w-full h-[50%] py-2 px-2 bg-white text-blue-600 rounded-lg hover:bg-blue-200 transition duration-300 !no-underline text-center"

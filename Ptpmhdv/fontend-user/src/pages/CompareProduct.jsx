@@ -16,7 +16,8 @@ const CompareProduct = () => {
         screen: 'Màn hình',
         graphics_card: 'Card đồ họa',
         battery: 'Dung lượng Pin',
-        weight: 'Trọng lượng'
+        weight: 'Trọng lượng',
+        cpu: 'Bộ xử lý trung tâm'
     }
 
     const fetchComparisonData = useCallback(async () => {
@@ -27,6 +28,10 @@ const CompareProduct = () => {
     useEffect(() => {
         fetchComparisonData()
     }, [fetchComparisonData])
+    //xoá cục () trong name
+    const removeParentheses = (str) => {
+        return str.replace(/\s*\([^)]*\)/g, '')
+    }
 
     const renderComparisonTable = () => {
         if (comparisonData.length === 0 || !comparisonData[0] || !comparisonData[1]) {
@@ -59,8 +64,12 @@ const CompareProduct = () => {
                     </tr>
                     <tr className="bg-gray-100">
                         <th className="border border-gray-300 px-4 py-2 text-left">Thông số</th>
-                        <th className="border border-gray-300 px-4 py-2 text-left">{comparisonData[0].name}</th>
-                        <th className="border border-gray-300 px-4 py-2 text-left">{comparisonData[1].name}</th>
+                        <th className="border border-gray-300 px-4 py-2 text-left">
+                            {removeParentheses(comparisonData[0].name)}
+                        </th>
+                        <th className="border border-gray-300 px-4 py-2 text-left">
+                            {removeParentheses(comparisonData[1].name)}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>

@@ -6,16 +6,16 @@ public class LaptopComparisonResult {
     private Long id;
     private String name;
     private String image;
+    private ComparisonResult cpu;
     private ComparisonResult ram;
     private ComparisonResult ssd;
+    private ComparisonResult graphics_card;
+    private ComparisonResult battery;
+    private ComparisonResult screen;
+    private ComparisonResult weight;
     private ComparisonResult sale_price;
     private ComparisonResult discount_percentage;
     private ComparisonResult gift;
-    private ComparisonResult screen;
-    private ComparisonResult cpu;
-    private ComparisonResult graphics_card;
-    private ComparisonResult battery;
-    private ComparisonResult weight;
 
     public LaptopComparisonResult(Long id, String name, String image, ComparisonResult ram, ComparisonResult ssd, ComparisonResult sale_price, ComparisonResult discount_percentage, ComparisonResult gift, ComparisonResult screen, ComparisonResult graphics_card, ComparisonResult battery, ComparisonResult weight, ComparisonResult cpu) {
         this.id = id;

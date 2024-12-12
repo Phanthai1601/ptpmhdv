@@ -5,8 +5,9 @@ import { useNavigate } from 'react-router-dom'
 
 const CompareLaptops = () => {
     const dispatch = useDispatch()
-    let compareList = [null, null]
-    compareList = useSelector((state) => state.compareList)
+    let compareList = useSelector((state) => state.compareList) || [null, null]
+    let countNonNullItems = 2 - compareList.filter((item) => item !== null).length
+
     const [isOpen, setIsOpen] = useState(true)
     const isDisableCompare = compareList.filter((item) => item !== null).length <= 1
     const navigate = useNavigate()
@@ -53,7 +54,7 @@ const CompareLaptops = () => {
                     <div className="absolute bottom-[8rem] right-[-1.5px]">
                         <button
                             onClick={handleCollapse}
-                            className="rounded-t-lg bg-white flex items-center justify-center shadow-lg hover:bg-gray-300 transition-all"
+                            className="rounded-t-lg bg-white flex items-center justify-center shadow-sm hover:bg-gray-300 transition-all"
                         >
                             <span className="text-sm font-semibold mx-2 text-gray-900 font-sans">
                                 Thu gọn <span className="text-lg font-sans">↓</span>
@@ -89,6 +90,16 @@ const CompareLaptops = () => {
                             )}
                         </div>
                     ))}
+                    {Array.from({ length: countNonNullItems }, (_, index) => (
+                        <div
+                            key={index}
+                            className="flex flex-col items-center justify-center w-1/3 border-r border-gray-400"
+                        >
+                            <button className="w-14 h-14 text-3xl font-bold text-gray-800 border-[2px] rounded-lg border-dashed border-gray-400 flex items-center justify-center">
+                                +
+                            </button>
+                        </div>
+                    ))}
 
                     <div className="fixed flex flex-col items-center justify-center w-1/3 right-0 bottom-[50%] transform translate-y-[50%]">
                         <button
@@ -100,7 +111,7 @@ const CompareLaptops = () => {
                         >
                             So sánh
                         </button>
-                        <span onClick={handleClearAll} className="w-auto px-4 text-sky-700 cursor-pointer">
+                        <span onClick={handleClearAll} className="w-auto px-4 text-sm text-sky-800 cursor-pointer">
                             Xóa tất cả sản phẩm
                         </span>
                     </div>
