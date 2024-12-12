@@ -64,9 +64,12 @@ public class LaptopComparisonController {
         ComparisonResult weightLaptop2 = weight == ComparisonResult.TRUE ? ComparisonResult.FALSE
                 : (weight == ComparisonResult.FALSE ? ComparisonResult.TRUE : ComparisonResult.EQUAL);
 
-        ComparisonResult gpu = LaptopComparisonUtils.compareGpu(LaptopComparisonUtils.extractGpu(laptop1.getGraphics_card()), LaptopComparisonUtils.extractGpu(laptop2.getGraphics_card()));
+        ComparisonResult gpu = LaptopComparisonUtils.compareGpuOrCpu(LaptopComparisonUtils.extractGpu(laptop1.getGraphics_card()), LaptopComparisonUtils.extractGpu(laptop2.getGraphics_card()));
         ComparisonResult gpuLaptop2 = gpu == ComparisonResult.TRUE ? ComparisonResult.FALSE
                 : (gpu == ComparisonResult.FALSE ? ComparisonResult.TRUE : ComparisonResult.EQUAL);
+        ComparisonResult cpu = LaptopComparisonUtils.compareGpuOrCpu(LaptopComparisonUtils.extractCpu(laptop1.getCpu()), LaptopComparisonUtils.extractCpu(laptop2.getCpu()));
+        ComparisonResult cpuLaptop2 = cpu == ComparisonResult.TRUE ? ComparisonResult.FALSE
+                : (cpu == ComparisonResult.FALSE ? ComparisonResult.TRUE : ComparisonResult.EQUAL);
 
         ComparisonResult discountPercent = LaptopComparisonUtils.compare(LaptopComparisonUtils.extractDiscountPercentage(laptop1.getDiscount_percentage()),
                 LaptopComparisonUtils.extractDiscountPercentage(laptop2.getDiscount_percentage()));
@@ -81,13 +84,13 @@ public class LaptopComparisonController {
         LaptopComparisonResult result1 = new LaptopComparisonResult(
                 laptop1.getId(), laptop1.getName(), laptop1.getImage(),
                 ramCompare, ssdCompare, sale,discountPercent,
-                gift,screen,gpu,  battery, weight);
+                gift,screen,gpu,  battery, weight, cpu);
 
         LaptopComparisonResult result2 = new LaptopComparisonResult(
                 laptop2.getId(), laptop2.getName(), laptop2.getImage(),
                 ramCompareLaptop2, ssdCompareLaptop2, saleLaptop2,
                 discountLaptop2, giftLaptop2,screenLaptop2,gpuLaptop2,
-                batteryLaptop2, weightLaptop2);
+                batteryLaptop2, weightLaptop2, cpuLaptop2);
 
         return ResponseEntity.ok(List.of(result1, result2));
     }

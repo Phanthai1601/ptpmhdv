@@ -17,7 +17,7 @@ public class LaptopComparisonResult {
     private ComparisonResult battery;
     private ComparisonResult weight;
 
-    public LaptopComparisonResult(Long id, String name, String image, ComparisonResult ram, ComparisonResult ssd, ComparisonResult sale_price, ComparisonResult discount_percentage, ComparisonResult gift, ComparisonResult screen, ComparisonResult graphics_card, ComparisonResult battery, ComparisonResult weight) {
+    public LaptopComparisonResult(Long id, String name, String image, ComparisonResult ram, ComparisonResult ssd, ComparisonResult sale_price, ComparisonResult discount_percentage, ComparisonResult gift, ComparisonResult screen, ComparisonResult graphics_card, ComparisonResult battery, ComparisonResult weight, ComparisonResult cpu) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -30,6 +30,7 @@ public class LaptopComparisonResult {
         this.graphics_card = graphics_card;
         this.battery = battery;
         this.weight = weight;
+        this.cpu = cpu;
     }
 
     public Long getId() {
@@ -128,5 +129,13 @@ public class LaptopComparisonResult {
 
     public void setWeight(ComparisonResult weight) {
         this.weight = weight;
+    }
+
+    public ComparisonResult getCpu() {
+        return cpu;
+    }
+
+    public void setCpu(ComparisonResult cpu) {
+        this.cpu = cpu;
     }
 }
