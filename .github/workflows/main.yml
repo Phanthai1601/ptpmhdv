@@ -16,12 +16,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: List root directory
+        run: ls -l
+
+      - name: List Ptpmhdv directory
+        run: ls -l ./Ptpmhdv
+
+      - name: List backend directory
+        run: ls -l ./Ptpmhdv/backend
+
+      - name: List demo directory
+        run: ls -l ./Ptpmhdv/backend/demo
+
       - name: Setup JDK 17
         uses: actions/setup-java@v3
         with:
           distribution: temurin
-          java-version: '22'
+          java-version: '17'
 
       - name: Build with Maven and run tests
-        working-directory: ./backend/demo
+        working-directory: ./Ptpmhdv/backend/demo
         run: mvn clean test
