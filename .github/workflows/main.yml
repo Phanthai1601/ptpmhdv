@@ -23,5 +23,5 @@ jobs:
         java-version: '22'
 
     - name: Build with Maven and run tests
-      working-directory: ./backend/demo   # <-- thêm dòng này trỏ đến thư mục backend
+      working-directory: ./backend   # <-- thêm dòng này trỏ đến thư mục backend
       run: mvn clean test
