@@ -13,15 +13,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Setup JDK 17
-      uses: actions/setup-java@v3
-      with:
-        distribution: temurin
-        java-version: '22'
+      - name: Setup JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: '22'
 
-    - name: Build with Maven and run tests
-      working-directory: ./backend   # <-- thêm dòng này trỏ đến thư mục backend
-      run: mvn clean test
+      - name: Build with Maven and run tests
+        working-directory: ./backend/demo
+        run: mvn clean test
