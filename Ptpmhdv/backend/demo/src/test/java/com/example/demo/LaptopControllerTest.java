@@ -21,7 +21,7 @@ public class LaptopControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value("1"))
+                .andExpect(jsonPath("$.id").value("16"))
                 .andExpect(jsonPath("$.name").exists());
     }
 
