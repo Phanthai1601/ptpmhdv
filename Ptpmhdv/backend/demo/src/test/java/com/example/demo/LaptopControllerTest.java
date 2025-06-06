@@ -27,7 +27,7 @@ public class LaptopControllerTest {
 
     @Test
     public void testGetLaptopById_notFound() throws Exception {
-        mockMvc.perform(get("/api/laptops/999")
+        mockMvc.perform(get("/api/laptops/9999")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
