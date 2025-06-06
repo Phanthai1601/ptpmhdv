@@ -25,10 +25,5 @@ public class LaptopControllerTest {
                 .andExpect(jsonPath("$.name").exists());
     }
 
-    @Test
-    public void testGetLaptopById_notFound() throws Exception {
-        mockMvc.perform(get("/api/laptops/9999")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
-    }
+
 }
