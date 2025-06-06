@@ -16,11 +16,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Check Java version
-        run: java -version
+      - name: List root directory
+        run: ls -l
 
-      - name: Check Maven version
-        run: mvn -v
+      - name: List Ptpmhdv directory
+        run: ls -l ./Ptpmhdv
+
+      - name: List backend directory
+        run: ls -l ./Ptpmhdv/backend
+
+      - name: List demo directory
+        run: ls -l ./Ptpmhdv/backend/demo
 
       - name: Setup JDK 17
         uses: actions/setup-java@v3
@@ -28,13 +34,6 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Build and test with Maven (no parallel)
+      - name: Build with Maven and run tests
         working-directory: ./Ptpmhdv/backend/demo
-        run: mvn clean test -Dparallel=none
-
-      - name: Upload Surefire Reports (on failure)
-        if: failure()
-        uses: actions/upload-artifact@v3
-        with:
-          name: surefire-reports
-          path: ./Ptpmhdv/backend/demo/target/surefire-reports/
+        run: mvn clean test
