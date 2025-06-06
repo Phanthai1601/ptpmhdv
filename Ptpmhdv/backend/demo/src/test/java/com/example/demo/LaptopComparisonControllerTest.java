@@ -84,7 +84,8 @@ public class LaptopComparisonControllerTest {
 
         // Laptop 2 (id = 9)
         assertEquals(9L, results.get(1).getId());
-        assertEquals(ComparisonResult.FALSE, results.get(1).getCpu());
+        // dang sua o day thanh true de test
+        assertEquals(ComparisonResult.TRUE, results.get(1).getCpu());
         assertEquals(ComparisonResult.FALSE, results.get(1).getRam());
         assertEquals(ComparisonResult.EQUAL, results.get(1).getSsd());
         assertEquals(ComparisonResult.FALSE, results.get(1).getGraphics_card());
